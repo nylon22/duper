@@ -1,0 +1,25 @@
+{
+  "name": "@duper/utils",
+  "version": "1.0.0-alpha.0",
+  "description": "Duper Utility Functions",
+  "main": "utils.js",
+  "keywords": [
+    "cli,",
+    "elasticsearch,",
+    "cross",
+    "cluster",
+    "replication",
+    "ccr",
+    "elastic",
+    "utils"
+  ],
+  "author": "Tyson Warner <tyrules3@yahoo.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "globby": "^11.0.0",
+    "yaml": "^1.9.2"
+  }
+}

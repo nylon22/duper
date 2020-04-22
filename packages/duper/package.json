@@ -1,0 +1,33 @@
+{
+  "name": "@duper/duper",
+  "bin": "./duper.js",
+  "version": "1.0.0-alpha.0",
+  "description": "A command line tool for managing Elasticsearch Cross-cluster Replication",
+  "main": "duper.js",
+  "keywords": [
+    "cli",
+    "elasticsearch,",
+    "cross",
+    "cluster",
+    "replication",
+    "ccr",
+    "elastic"
+  ],
+  "author": "Tyson Warner <tyrules3@yahoo.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@duper/follow": "1.0.0-alpha.0",
+    "@duper/forget": "1.0.0-alpha.0",
+    "@duper/info": "1.0.0-alpha.0",
+    "@duper/pause": "1.0.0-alpha.0",
+    "@duper/resume": "1.0.0-alpha.0",
+    "@duper/stats": "1.0.0-alpha.0",
+    "@duper/unfollow": "1.0.0-alpha.0",
+    "@duper/config": "1.0.0-alpha.0",
+    "chalk": "^4.0.0",
+    "yargs": "^15.3.1"
+  }
+}

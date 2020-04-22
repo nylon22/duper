@@ -1,0 +1,26 @@
+{
+  "name": "@duper/forget",
+  "version": "1.0.0-alpha.0",
+  "description": "Forget a following",
+  "main": "forget.js",
+  "keywords": [
+    "cli,",
+    "elasticsearch,",
+    "cross",
+    "cluster",
+    "replication",
+    "ccr",
+    "elastic",
+    "forget"
+  ],
+  "author": "Tyson Warner <tyrules3@yahoo.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@duper/utils": "1.0.0-alpha.0",
+    "axios": "^0.19.2",
+    "chalk": "^4.0.0"
+  }
+}
