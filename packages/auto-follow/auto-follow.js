@@ -3,11 +3,10 @@ const { handler } = require('./handler');
 module.exports = {
   command: 'auto-follow',
   describe:
-    'This command creates a new named collection of auto-follow patterns against the remote cluster specified in the options. Newly created indices on the remote cluster matching any of the specified patterns will be automatically configured as follower indices.',
+    'Create a new named collection of auto-follow patterns against the remote cluster specified in the options. Newly created indices on the remote cluster matching any of the specified patterns will be automatically configured as follower indices.',
   builder: {
     auto_follow_pattern_name: {
-      desc:
-        'The name of the collection of auto-follow patterns',
+      desc: 'The name of the collection of auto-follow patterns',
       type: 'string',
       demandOption: true,
     },
@@ -17,7 +16,8 @@ module.exports = {
       demandOption: true,
     },
     leader_index_patterns: {
-      desc: 'An array of simple index patterns to match against indices in the remote cluster specified by the remote_cluster option.',
+      desc:
+        'An array of simple index patterns to match against indices in the remote cluster specified by the remote_cluster option.',
       type: 'array',
     },
     follow_index_pattern: {
@@ -74,4 +74,3 @@ module.exports = {
   },
   handler,
 };
-

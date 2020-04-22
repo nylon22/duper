@@ -3,7 +3,7 @@ const { handler } = require('./handler');
 module.exports = {
   command: 'resume',
   describe:
-    'This command resumes a follower index on the current cluster that has been paused either explicitly with the duper pause command or implicitly due to execution that can not be retried due to failure during following. After running this command, the follower index will resume fetching operations from the leader index.',
+    'Resume a follower index on the current cluster that has been paused either explicitly with the duper pause command or implicitly due to execution that can not be retried due to failure during following. After running this command, the follower index will resume fetching operations from the leader index.',
   builder: {
     follower_index: {
       alias: 'f',

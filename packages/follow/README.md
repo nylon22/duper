@@ -1,6 +1,6 @@
 # @duper/follow
 
-> This command creates a new follower index on the current cluster that is configured to follow the referenced leader index. After running this command, the follower index exists, and cross-cluster replication starts replicating operations from the leader index to the follower index.
+> Create a new follower index on the current cluster that is configured to follow the referenced leader index. After running this command, the follower index exists, and cross-cluster replication starts replicating operations from the leader index to the follower index.
 
 ## Usage
 

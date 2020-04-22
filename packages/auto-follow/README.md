@@ -1,6 +1,6 @@
 # @duper/auto-follow
 
-> This command creates a new named collection of auto-follow patterns against the remote cluster specified in the options. Newly created indices on the remote cluster matching any of the specified patterns will be automatically configured as follower indices.
+> Create a new named collection of auto-follow patterns against the remote cluster specified in the options. Newly created indices on the remote cluster matching any of the specified patterns will be automatically configured as follower indices.
 
 ## Usage
 
