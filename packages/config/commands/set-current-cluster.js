@@ -1,14 +1,11 @@
 const chalk = require('chalk');
-const {
-  getConfigurationFile,
-  writeConfigurationFile,
-} = require('@duper/utils');
+const { getConfigurationFile, writeConfigurationFile } = require('@duper/utils');
 
 const handler = async (argv) => {
   const { name } = argv;
 
   if (!name) {
-    throw new Error('missing required argument: "name"');
+    throw new Error('Missing required argument: "name"');
   }
 
   const config = await getConfigurationFile();
@@ -35,7 +32,7 @@ const handler = async (argv) => {
 
   const message = `Successfully set current cluster to "${name}"`;
 
-  console.log(`${chalk['gray'](message)}`);
+  console.log(`${chalk['green'](message)}`);
 };
 
 module.exports = {

@@ -7,7 +7,8 @@ module.exports = {
   builder: {
     follower_index: {
       alias: 'f',
-      desc: 'The name of the index to create in the follower cluster. The follower cluster is the current cluster. You can set the current cluster by running "duper config switch-cluster [options]"',
+      desc:
+        'The name of the index to create in the follower cluster. The follower cluster is the current cluster. You can set the current cluster by running "duper config switch-cluster [options]"',
       type: 'string',
       demandOption: true,
     },
@@ -29,13 +30,11 @@ module.exports = {
       type: 'number',
     },
     max_read_request_operation_count: {
-      desc:
-        'The maximum number of operations to pull per read from the remote cluster.',
+      desc: 'The maximum number of operations to pull per read from the remote cluster.',
       type: 'number',
     },
     max_outstanding_read_requests: {
-      desc:
-        'The maximum number of outstanding reads requests from the remote cluster.',
+      desc: 'The maximum number of outstanding reads requests from the remote cluster.',
       type: 'number',
     },
     max_read_request_size: {
@@ -44,8 +43,7 @@ module.exports = {
       type: 'string',
     },
     max_write_request_operation_count: {
-      desc:
-        'The maximum number of operations per bulk write request executed on the follower.',
+      desc: 'The maximum number of operations per bulk write request executed on the follower.',
       type: 'number',
     },
     max_write_request_size: {

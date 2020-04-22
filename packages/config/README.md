@@ -50,3 +50,19 @@ $ duper config set-current-cluster [options]
 | Option | Description | Type | Alias | Required |
 | -------- | ----------- | ------- | ------- | -------- |
 | `name` | The friendly name for the Elasticsearch cluster | `string` | `n` | **True** |
+
+### Delete Cluster Command
+
+> Delete a Elasticsearch cluster configuration
+
+#### Usage
+
+```sh
+$ duper config delete-cluster [options]
+```
+
+#### Options
+
+| Option | Description | Type | Alias | Required |
+| -------- | ----------- | ------- | ------- | -------- |
+| `name` | The friendly name for the Elasticsearch cluster | `string` | `n` | **True** |
