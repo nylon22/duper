@@ -1,6 +1,4 @@
-const listCmd = require('./list');
-const addClusterCmd = require('./add-cluster');
-const setCurrentClusterCmd = require('./set-current-cluster');
+const { listCmd, addClusterCmd, setCurrentClusterCmd, deleteClusterCmd } = require('./commands/index');
 
 module.exports = {
   command: 'config',
@@ -11,6 +9,7 @@ module.exports = {
       .command(listCmd)
       .command(addClusterCmd)
       .command(setCurrentClusterCmd)
+      .command(deleteClusterCmd)
       .option('url', {
         alias: 'u',
         desc: 'The url of the Elasticsearch cluster',

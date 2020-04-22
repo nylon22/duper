@@ -5,11 +5,11 @@ const handler = async (argv) => {
   const { url, name } = argv;
 
   if (!url) {
-    throw new Error('missing required argument: "url"');
+    throw new Error('Missing required argument: "url"');
   }
 
   if (!name) {
-    throw new Error('missing required argument: "name"');
+    throw new Error('Missing required argument: "name"');
   }
 
   const config = await getConfigurationFile();
@@ -37,8 +37,7 @@ const handler = async (argv) => {
 
   Run "duper config list" to see the clusters in your duper configuration.
   `;
-
-  console.log(`${chalk['gray'](message)}`);
+  console.log(`${chalk['green'](message)}`);
 };
 
 module.exports = {
