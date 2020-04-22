@@ -26,6 +26,7 @@ yargs
   .command(require('@duper/resume'))
   .command(require('@duper/stats'))
   .command(require('@duper/unfollow'))
+  .command(require('@duper/auto-follow'))
   .command(require('@duper/config'))
   .recommendCommands()
   .parse(process.argv.slice(2));

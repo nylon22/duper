@@ -1,0 +1,27 @@
+{
+  "name": "@duper/auto-follow",
+  "version": "1.0.0-alpha.0",
+  "description": "Auto-follow a pattern of leader indices",
+  "main": "auto-follow.js",
+  "keywords": [
+    "cli,",
+    "elasticsearch,",
+    "cross",
+    "cluster",
+    "replication",
+    "ccr",
+    "elastic",
+    "auto",
+    "follow"
+  ],
+  "author": "Tyson Warner <tyrules3@yahoo.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@duper/utils": "1.0.0-alpha.0",
+    "axios": "^0.19.2",
+    "chalk": "^4.0.0"
+  }
+}

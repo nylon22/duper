@@ -86,6 +86,7 @@ $ duper follow --follower_index "products-copy" --leader_index "products" --remo
 - [resume](./packages/resume/README.md)
 - [stats](./packages/stats/README.md)
 - [unfollow](./packages/unfollow/README.md)
+- [auto-follow](./packages/auto-follow/README.md)
 
 ## Configuration
 

@@ -53,7 +53,7 @@ $ duper config set-current-cluster [options]
 
 ### Delete Cluster Command
 
-> Delete a Elasticsearch cluster configuration
+> Delete an Elasticsearch cluster configuration
 
 #### Usage
 

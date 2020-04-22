@@ -19,6 +19,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@duper/auto-follow": "1.0.0-alpha.0",
     "@duper/follow": "1.0.0-alpha.0",
     "@duper/forget": "1.0.0-alpha.0",
     "@duper/info": "1.0.0-alpha.0",
