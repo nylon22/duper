@@ -32,6 +32,7 @@ yargs
   .command(require('@duper/resume-auto-follow'))
   .command(require('@duper/delete-auto-follow'))
   .command(require('@duper/get-auto-follow'))
+  .command(require('@duper/add-remote-cluster'))
   .recommendCommands()
   .parse(process.argv.slice(2));
 

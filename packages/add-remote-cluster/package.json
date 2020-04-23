@@ -1,0 +1,27 @@
+{
+  "name": "@duper/add-remote-cluster",
+  "version": "1.0.0-alpha.0",
+  "description": "Add a remote cluster",
+  "main": "add-remote-cluster.js",
+  "keywords": [
+    "cli,",
+    "elasticsearch,",
+    "cross",
+    "cluster",
+    "replication",
+    "ccr",
+    "elastic",
+    "add",
+    "remote"
+  ],
+  "author": "Tyson Warner <tyrules3@yahoo.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@duper/utils": "1.0.0-alpha.0",
+    "axios": "^0.19.2",
+    "lodash.set": "^4.3.2"
+  }
+}
