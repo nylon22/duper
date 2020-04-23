@@ -92,6 +92,7 @@ $ duper follow --follower_index "products-copy" --leader_index "products" --remo
 - [pause-auto-follow](./packages/pause-auto-follow/README.md)
 - [resume-auto-follow](./packages/resume-auto-follow/README.md)
 - [add-remote-cluster](./packages/add-remote-cluster/README.md)
+- [enable-soft-deletes](./packages/enable-soft-deletes/README.md)
 
 ## Configuration
 

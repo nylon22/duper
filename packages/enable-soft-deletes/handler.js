@@ -3,23 +3,25 @@ const sysPath = require('path');
 const set = require('lodash.set');
 const { getCurrentCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
-const handler = async ({ remote_cluster, seeds, verbose }) => {
+const handler = async ({ leader_index, verbose }) => {
   const clusterUrl = await getCurrentCluster();
 
   try {
-    // Get the cluster settings
-    const requestPath = '_cluster/settings';
-    const requestUrl = sysPath.join(clusterUrl, requestPath);
+    // Get the definition of the leader index
+    const requestUrl = sysPath.join(clusterUrl, leader_index);
 
     const { data } = await axios({
       method: 'GET',
       url: requestUrl,
     });
 
-    // Add the remote cluster and seeds to the cluster settings
-    set(data, `persistent.cluster.remote.${remote_cluster}`, { seeds });
+    // We cannot just use leader_index, that may have been an alias
+    const indexKey = Object.keys(data)[0];
 
-    // Save the updated cluster settings
+    // Enable soft deletes for the index
+    set(data, `${indexKey}.settings.index.soft_deletes`, { enabled: true });
+
+    // Save the updated index definition
     const resp = await axios({
       method: 'PUT',
       requestUrl,
@@ -27,7 +29,7 @@ const handler = async ({ remote_cluster, seeds, verbose }) => {
     });
 
     logESSuccess({
-      message: `Successfully added remote cluster "${remote_cluster}" to follower cluster`,
+      message: `Successfully enabled soft deletes for leader index "${leader_index}"`,
       response: resp.data,
       verbose,
     });
