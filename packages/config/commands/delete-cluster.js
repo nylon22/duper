@@ -1,9 +1,11 @@
-const chalk = require('chalk');
-const { getConfigurationFile, writeConfigurationFile } = require('@duper/utils');
+const {
+  getConfigurationFile,
+  writeConfigurationFile,
+  logSuccess,
+  logFailure,
+} = require('@duper/utils');
 
-const handler = async (argv) => {
-  const { name } = argv;
-
+const handler = async ({ name }) => {
   if (!name) {
     throw new Error('Missing required argument: "name"');
   }
@@ -14,7 +16,10 @@ const handler = async (argv) => {
   const clusterExists = clusters.some((cluster) => cluster.name === name);
 
   if (!clusterExists) {
-    throw new Error(`Cluster with name "${name}" does not exist`);
+    logFailure({
+      message: `Cluster with name "${name}" does not exist`,
+    });
+    return;
   }
 
   config.clusters = clusters.filter((cluster) => cluster.name !== name);
@@ -25,8 +30,9 @@ const handler = async (argv) => {
 
   await writeConfigurationFile({ config });
 
-  const message = `Successfully deleted cluster named "${name}"`;
-  console.log(`${chalk['green'](message)}`);
+  logSuccess({
+    message: `Successfully deleted cluster named "${name}"`,
+  });
 };
 
 module.exports = {

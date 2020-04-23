@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const YAML = require('yaml');
 const { getConfigurationFile } = require('@duper/utils');
 
@@ -7,7 +6,7 @@ const handler = async () => {
 
   const stringifiedConfig = YAML.stringify(config);
 
-  console.log(`${chalk['white'](stringifiedConfig)}`);
+  console.log(stringifiedConfig);
 };
 
 module.exports = {

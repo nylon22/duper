@@ -1,9 +1,11 @@
-const chalk = require('chalk');
-const { getConfigurationFile, writeConfigurationFile } = require('@duper/utils');
+const {
+  getConfigurationFile,
+  writeConfigurationFile,
+  logSuccess,
+  logFailure,
+} = require('@duper/utils');
 
-const handler = async (argv) => {
-  const { url, name } = argv;
-
+const handler = async ({ url, name, verbose }) => {
   if (!url) {
     throw new Error('Missing required argument: "url"');
   }
@@ -18,9 +20,10 @@ const handler = async (argv) => {
   const clusterAlreadyExists = clusters.some((cluster) => cluster.name === name);
 
   if (clusterAlreadyExists) {
-    throw new Error(
-      `Failed to add new Elasticsearch cluster configuration. A cluster with the name "${name}" already exists`
-    );
+    logFailure({
+      message: `Failed to add new Elasticsearch cluster configuration. A cluster with the name "${name}" already exists`,
+    });
+    return;
   }
 
   clusters.push({ url, name });
@@ -33,11 +36,11 @@ const handler = async (argv) => {
 
   await writeConfigurationFile({ config });
 
-  const message = `Successfully added "${name}" to cluster configurations
-
-  Run "duper config list" to see the clusters in your duper configuration.
-  `;
-  console.log(`${chalk['green'](message)}`);
+  logSuccess({
+    message: `Successfully added "${name}" to cluster configurations`,
+    verboseMessage: 'Run "duper config list" to see the clusters in your duper configuration.',
+    verbose,
+  });
 };
 
 module.exports = {

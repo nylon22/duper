@@ -1,9 +1,11 @@
-const chalk = require('chalk');
-const { getConfigurationFile, writeConfigurationFile } = require('@duper/utils');
+const {
+  getConfigurationFile,
+  writeConfigurationFile,
+  logSuccess,
+  logFailure,
+} = require('@duper/utils');
 
-const handler = async (argv) => {
-  const { name } = argv;
-
+const handler = async ({ name, verbose }) => {
   if (!name) {
     throw new Error('Missing required argument: "name"');
   }
@@ -14,25 +16,27 @@ const handler = async (argv) => {
   const clusterExists = clusters.some((cluster) => cluster.name === name);
 
   if (!clusterExists) {
-    const message = `Cluster with name "${name}" does not exist
-
-    To set "${name}" as the current cluster, first run "duper config add-cluster"`;
-    throw new Error(message);
-  }
-
-  if (current === name) {
-    const message = `Current cluster configuration is already "${name}"`;
-    console.log(`${chalk['gray'](message)}`);
+    logFailure({
+      message: `Cluster with name "${name}" does not exist`,
+      verboseMessage: `To set "${name}" as the current cluster, first run "duper config add-cluster"`,
+      verbose,
+    });
     return;
   }
 
-  config.current = name;
+  if (current === name) {
+    logSuccess({
+      message: `Current cluster configuration is already "${name}"`,
+    });
+  } else {
+    config.current = name;
 
-  await writeConfigurationFile({ config });
+    await writeConfigurationFile({ config });
 
-  const message = `Successfully set current cluster to "${name}"`;
-
-  console.log(`${chalk['green'](message)}`);
+    logSuccess({
+      message: `Successfully set current cluster to "${name}"`,
+    });
+  }
 };
 
 module.exports = {
