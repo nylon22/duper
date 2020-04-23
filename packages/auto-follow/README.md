@@ -29,4 +29,4 @@ $ duper auto-follow [options]
 
 ### Additional Information
 
-For additional information, including the defaults for options, see the [Elasicsearch Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html)
+For additional information, including the defaults for options, see the [Elasticsearch Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html)
