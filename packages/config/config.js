@@ -1,8 +1,13 @@
-const { listCmd, addClusterCmd, setCurrentClusterCmd, deleteClusterCmd } = require('./commands/index');
+const {
+  listCmd,
+  addClusterCmd,
+  setCurrentClusterCmd,
+  deleteClusterCmd,
+} = require('./commands/index');
 
 module.exports = {
   command: 'config',
-  describe: 'Duper configuration commands',
+  describe: 'Manage your duper configuration',
   builder: (yargs) => {
     yargs
       .usage('Usage: $0 config <command> [options]')

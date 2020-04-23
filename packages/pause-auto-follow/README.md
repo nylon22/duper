@@ -19,4 +19,3 @@ $ duper pause-auto-follow [options]
 ### Additional Information
 
 For additional information, see the [Elasticsearch Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html)
-
