@@ -29,6 +29,7 @@ yargs
   .command(require('@duper/auto-follow'))
   .command(require('@duper/delete-auto-follow'))
   .command(require('@duper/get-auto-follow'))
+  .command(require('@duper/pause-auto-follow'))
   .command(require('@duper/config'))
   .recommendCommands()
   .parse(process.argv.slice(2));

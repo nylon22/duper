@@ -7,11 +7,11 @@ const {
 
 const handler = async ({ url, name, verbose }) => {
   if (!url) {
-    throw new Error('Missing required argument: "url"');
+    throw new Error('Missing required argument: url');
   }
 
   if (!name) {
-    throw new Error('Missing required argument: "name"');
+    throw new Error('Missing required argument: name');
   }
 
   const config = await getConfigurationFile();

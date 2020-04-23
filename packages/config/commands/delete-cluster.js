@@ -7,7 +7,7 @@ const {
 
 const handler = async ({ name }) => {
   if (!name) {
-    throw new Error('Missing required argument: "name"');
+    throw new Error('Missing required argument: name');
   }
 
   const config = await getConfigurationFile();
