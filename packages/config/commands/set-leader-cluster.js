@@ -11,37 +11,37 @@ const handler = async ({ name, verbose }) => {
   }
 
   const config = await getConfigurationFile();
-  let { current = '', clusters = [] } = config;
+  let { leaderCluster = '', clusters = [] } = config;
 
   const clusterExists = clusters.some((cluster) => cluster.name === name);
 
   if (!clusterExists) {
     logFailure({
       message: `Cluster with name "${name}" does not exist`,
-      verboseMessage: `To set "${name}" as the current cluster, first run "duper config add-cluster"`,
+      verboseMessage: `To set "${name}" as your leader cluster, first run "duper config add-cluster"`,
       verbose,
     });
     return;
   }
 
-  if (current === name) {
+  if (leaderCluster === name) {
     logSuccess({
-      message: `Current cluster configuration is already "${name}"`,
+      message: `Leader cluster is already "${name}"`,
     });
   } else {
-    config.current = name;
+    config.leaderCluster = name;
 
     await writeConfigurationFile({ config });
 
     logSuccess({
-      message: `Successfully set current cluster to "${name}"`,
+      message: `Successfully set your leader cluster to "${name}"`,
     });
   }
 };
 
 module.exports = {
-  command: 'set-current-cluster',
-  describe: 'Set the current cluster',
+  command: 'set-leader-cluster',
+  describe: 'Set your leader cluster',
   builder: {
     name: {
       alias: 'n',

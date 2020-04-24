@@ -1,15 +1,21 @@
 const axios = require('axios');
 const sysPath = require('path');
 const set = require('lodash.set');
-const { getCurrentCluster, logESSuccess, logESFailure } = require('@duper/utils');
+const {
+  getFollowerCluster,
+  getLeaderCluster,
+  logESSuccess,
+  logESFailure,
+} = require('@duper/utils');
 
-const handler = async ({ remote_cluster, seeds, verbose }) => {
-  const clusterUrl = await getCurrentCluster();
+const handler = async ({ seeds, verbose }) => {
+  const { url: followerUrl } = await getFollowerCluster();
+  const { name: remote_cluster } = await getLeaderCluster();
 
   try {
     // Get the cluster settings
     const requestPath = '_cluster/settings';
-    const requestUrl = sysPath.join(clusterUrl, requestPath);
+    const requestUrl = sysPath.join(followerUrl, requestPath);
 
     const { data } = await axios({
       method: 'GET',
@@ -27,7 +33,7 @@ const handler = async ({ remote_cluster, seeds, verbose }) => {
     });
 
     logESSuccess({
-      message: `Successfully added remote cluster "${remote_cluster}" to follower cluster`,
+      message: `Successfully added leader cluster "${remote_cluster}" to your follower cluster`,
       response: resp.data,
       verbose,
     });

@@ -20,6 +20,8 @@ yargs
   .strict()
   .showHelpOnFail(true)
   .command(require('@duper/config'))
+  .command(require('@duper/connect'))
+  .command(require('@duper/enable-soft-deletes'))
   .command(require('@duper/follow'))
   .command(require('@duper/pause'))
   .command(require('@duper/resume'))
@@ -32,8 +34,6 @@ yargs
   .command(require('@duper/resume-auto-follow'))
   .command(require('@duper/delete-auto-follow'))
   .command(require('@duper/get-auto-follow'))
-  .command(require('@duper/add-remote-cluster'))
-  .command(require('@duper/enable-soft-deletes'))
   .recommendCommands()
   .parse(process.argv.slice(2));
 

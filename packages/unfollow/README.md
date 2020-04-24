@@ -1,6 +1,6 @@
 # @duper/unfollow
 
-> Stop the following task associated with a follower index on the current cluster and remove index metadata and settings associated with cross-cluster replication. This enables the index to treated as a regular index. The follower index must be paused and closed before running the unfollow command.
+> Stop the following task associated with a follower index on your follower cluster and remove index metadata and settings associated with cross-cluster replication. This enables the index to be treated as a regular index. The follower index must be paused and closed before running the unfollow command.
 
 ## Usage
 
@@ -12,7 +12,7 @@ $ duper unfollow [options]
 
 | Option | Description | Type | Alias | Required |
 | -------- | ----------- | ------- | -------- | ------- |
-| `follower_index` | The name of the index to unfollow in the current cluster. You can set the current cluster by running "duper config switch-cluster [options]" | `string` | `f` | **True** |
+| `follower_index` | The name of the index to unfollow | `string` | `f` | **True** |
 
 ### Additional Information
 

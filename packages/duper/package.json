@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/add-remote-cluster": "1.0.0-alpha.0",
+    "@duper/connect": "1.0.0-alpha.0",
     "@duper/auto-follow": "1.0.0-alpha.0",
     "@duper/enable-soft-deletes": "1.0.0-alpha.0",
     "@duper/delete-auto-follow": "1.0.0-alpha.0",

@@ -35,14 +35,24 @@ $ duper config add-cluster [options]
 | `url` | The url of the Elasticsearch cluster | `string` | `u` | **True** |
 | `name` | The friendly name for the Elasticsearch cluster | `string` | `n` | **True** |
 
-### Set Current Cluster Command
+### Set Follower Cluster Command
 
-> Set the current cluster
+> Set your follower cluster
 
 #### Usage
 
 ```sh
-$ duper config set-current-cluster [options]
+$ duper config set-follower-cluster [options]
+```
+
+### Set Leader Cluster Command
+
+> Set your leader cluster
+
+#### Usage
+
+```sh
+$ duper config set-leader-cluster [options]
 ```
 
 #### Options

@@ -18,16 +18,28 @@ const getConfigurationFile = async () => {
   return YAML.parse(config);
 };
 
-const getCurrentCluster = async () => {
-  const { clusters = [], current } = await getConfigurationFile();
-  const currentCluster = clusters.find((cluster) => cluster.name === current);
-  if (!currentCluster) {
+const getLeaderCluster = async () => {
+  const { clusters = [], leaderCluster } = await getConfigurationFile();
+  const leader = clusters.find((cluster) => cluster.name === leaderCluster);
+  if (!leader || !leaderCluster) {
     throw new Error(
-      'Current cluster is not defined. Please add cluster first by running "duper config add"'
+      'Leader cluster is not defined. You can set the leader cluster by running "duper config set-leader-cluster"'
     );
   }
 
-  return currentCluster;
+  return leader;
+};
+
+const getFollowerCluster = async () => {
+  const { clusters = [], followerCluster } = await getConfigurationFile();
+  const follower = clusters.find((cluster) => cluster.name === followerCluster);
+  if (!follower || !followerCluster) {
+    throw new Error(
+      'Follower cluster is not defined. You can set the follower cluster by running "duper config set-follower-cluster"'
+    );
+  }
+
+  return follower;
 };
 
 const writeConfigurationFile = async ({ config }) => {
@@ -73,7 +85,8 @@ const logFailure = ({ ...args }) => {
 
 module.exports = {
   getConfigurationFile,
-  getCurrentCluster,
+  getLeaderCluster,
+  getFollowerCluster,
   writeConfigurationFile,
   logESSuccess,
   logESFailure,

@@ -2,8 +2,7 @@ const { handler } = require('./handler');
 
 module.exports = {
   command: 'get-auto-follow',
-  describe:
-    'Get configured auto-follow patterns. This command will return the specified auto-follow pattern collection.',
+  describe: 'Get configured auto-follow patterns on your follower cluster.',
   builder: {
     auto_follow_pattern_name: {
       alias: 'p',

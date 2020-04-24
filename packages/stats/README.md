@@ -1,6 +1,6 @@
 # @duper/stats
 
-> Get follower stats. This command returns shard-level stats about the following tasks associated with each shard for the specified indices.
+> Get follower stats on your follower cluster. This command returns shard-level stats about the following tasks associated with each shard for the specified indices.
 
 ## Usage
 

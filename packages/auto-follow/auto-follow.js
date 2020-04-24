@@ -3,21 +3,15 @@ const { handler } = require('./handler');
 module.exports = {
   command: 'auto-follow',
   describe:
-    'Create a new named collection of auto-follow patterns against the remote cluster specified in the options. Newly created indices on the remote cluster matching any of the specified patterns will be automatically configured as follower indices.',
+    'Create a new named collection of auto-follow patterns to follow on your leader cluster.',
   builder: {
     auto_follow_pattern_name: {
       desc: 'The name of the collection of auto-follow patterns',
       type: 'string',
       demandOption: true,
     },
-    remote_cluster: {
-      desc: 'The remote cluster containing the leader indices to match against.',
-      type: 'string',
-      demandOption: true,
-    },
     leader_index_patterns: {
-      desc:
-        'An array of simple index patterns to match against indices in the remote cluster specified by the remote_cluster option.',
+      desc: 'An array of simple index patterns to match against indices in your leader cluster',
       type: 'array',
     },
     follow_index_pattern: {
@@ -26,11 +20,11 @@ module.exports = {
       type: 'string',
     },
     max_read_request_operation_count: {
-      desc: 'The maximum number of operations to pull per read from the remote cluster.',
+      desc: 'The maximum number of operations to pull per read from your leader cluster.',
       type: 'number',
     },
     max_outstanding_read_requests: {
-      desc: 'The maximum number of outstanding reads requests from the remote cluster.',
+      desc: 'The maximum number of outstanding reads requests from your leader cluster.',
       type: 'number',
     },
     max_read_request_size: {
@@ -53,12 +47,12 @@ module.exports = {
     },
     max_write_buffer_count: {
       desc:
-        'The maximum number of operations that can be queued for writing. When this limit is reached, reads from the remote cluster will be deferred until the number of queued operations goes below the limit.',
+        'The maximum number of operations that can be queued for writing. When this limit is reached, reads from your leader cluster will be deferred until the number of queued operations goes below the limit.',
       type: 'number',
     },
     max_write_buffer_size: {
       desc:
-        'The maximum total bytes of operations that can be queued for writing. When this limit is reached, reads from the remote cluster will be deferred until the total bytes of queued operations goes below the limit.',
+        'The maximum total bytes of operations that can be queued for writing. When this limit is reached, reads from your leader cluster will be deferred until the total bytes of queued operations goes below the limit.',
       type: 'string',
     },
     max_retry_delay: {
@@ -68,7 +62,7 @@ module.exports = {
     },
     read_poll_timeout: {
       desc:
-        'The maximum time to wait for new operations on the remote cluster when the follower index is synchronized with the leader index. When the timeout has elapsed, the poll for operations will return to the follower so that it can update some statistics. Then the follower will immediately attempt to read from the leader again.',
+        'The maximum time to wait for new operations on your leader cluster when the follower index is synchronized with the leader index. When the timeout has elapsed, the poll for operations will return to the follower so that it can update some statistics. Then the follower will immediately attempt to read from the leader again.',
       type: 'string',
     },
   },

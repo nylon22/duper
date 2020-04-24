@@ -1,18 +1,24 @@
 const axios = require('axios');
 const sysPath = require('path');
-const { getCurrentCluster, logESSuccess, logESFailure } = require('@duper/utils');
+const {
+  getFollowerCluster,
+  getLeaderCluster,
+  logESSuccess,
+  logESFailure,
+} = require('@duper/utils');
 
 const handler = async ({ auto_follow_pattern_name, verbose, ...payload }) => {
-  const clusterUrl = await getCurrentCluster();
+  const { url: followerUrl } = await getFollowerCluster();
+  const { name: remote_cluster } = await getLeaderCluster();
 
   const requestPath = '_ccr/auto_follow';
-  const requestUrl = sysPath.join(clusterUrl, requestPath, auto_follow_pattern_name);
+  const requestUrl = sysPath.join(followerUrl, requestPath, auto_follow_pattern_name);
 
   try {
     const resp = await axios({
       method: 'PUT',
       url: requestUrl,
-      data: payload,
+      data: { remote_cluster, ...payload },
     });
 
     logESSuccess({

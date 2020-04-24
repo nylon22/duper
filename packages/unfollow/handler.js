@@ -1,12 +1,12 @@
 const axios = require('axios');
 const sysPath = require('path');
-const { getCurrentCluster, logESSuccess, logESFailure } = require('@duper/utils');
+const { getFollowerCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
 const handler = async ({ follower_index, verbose }) => {
-  const clusterUrl = await getCurrentCluster();
+  const { url: followerUrl } = await getFollowerCluster();
 
   const requestPath = '_ccr/unfollow';
-  const requestUrl = sysPath.join(clusterUrl, follower_index, requestPath);
+  const requestUrl = sysPath.join(followerUrl, follower_index, requestPath);
 
   try {
     const resp = await axios({

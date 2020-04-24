@@ -5,43 +5,43 @@ const {
   logFailure,
 } = require('@duper/utils');
 
-const handler = async ({ name }) => {
+const handler = async ({ name, verbose }) => {
   if (!name) {
     throw new Error('Missing required argument: name');
   }
 
   const config = await getConfigurationFile();
-  let { clusters = [] } = config;
+  let { followerCluster = '', clusters = [] } = config;
 
   const clusterExists = clusters.some((cluster) => cluster.name === name);
 
   if (!clusterExists) {
     logFailure({
       message: `Cluster with name "${name}" does not exist`,
+      verboseMessage: `To set "${name}" as your follower cluster, first run "duper config add-cluster"`,
+      verbose,
     });
     return;
   }
 
-  config.clusters = clusters.filter((cluster) => cluster.name !== name);
+  if (followerCluster === name) {
+    logSuccess({
+      message: `Follower cluster is already "${name}"`,
+    });
+  } else {
+    config.followerCluster = name;
 
-  if (config.followerCluster === name) {
-    delete config.followerCluster;
+    await writeConfigurationFile({ config });
+
+    logSuccess({
+      message: `Successfully set your follower cluster to "${name}"`,
+    });
   }
-
-  if (config.leaderCluster === name) {
-    delete config.leaderCluster;
-  }
-
-  await writeConfigurationFile({ config });
-
-  logSuccess({
-    message: `Successfully deleted cluster named "${name}"`,
-  });
 };
 
 module.exports = {
-  command: 'delete-cluster',
-  describe: 'Delete a Elasticsearch cluster configuration',
+  command: 'set-follower-cluster',
+  describe: 'Set your follower cluster',
   builder: {
     name: {
       alias: 'n',

@@ -1,6 +1,6 @@
 # @duper/delete-auto-follow
 
-> Delete a configured collection of auto-follow patterns.
+> Delete a configured collection of auto-follow patterns on your follower cluster
 
 ## Usage
 
@@ -12,7 +12,7 @@ $ duper delete-auto-follow [options]
 
 | Option | Description | Type | Alias | Required |
 | -------- | ----------- | ------- | -------- | -------- |
-| `auto_follow_pattern_name` | The auto-follow pattern to delete | `string` | `p` | **True** |
+| `auto_follow_pattern_name` | The auto-follow pattern name to delete | `string` | `p` | **True** |
 
 ### Additional Information
 

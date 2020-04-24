@@ -1,14 +1,14 @@
 const axios = require('axios');
 const sysPath = require('path');
 const set = require('lodash.set');
-const { getCurrentCluster, logESSuccess, logESFailure } = require('@duper/utils');
+const { getLeaderCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
 const handler = async ({ leader_index, verbose }) => {
-  const clusterUrl = await getCurrentCluster();
+  const { url: leaderUrl } = await getLeaderCluster();
 
   try {
     // Get the definition of the leader index
-    const requestUrl = sysPath.join(clusterUrl, leader_index);
+    const requestUrl = sysPath.join(leaderUrl, leader_index);
 
     const { data } = await axios({
       method: 'GET',
@@ -29,7 +29,7 @@ const handler = async ({ leader_index, verbose }) => {
     });
 
     logESSuccess({
-      message: `Successfully enabled soft deletes for leader index "${leader_index}"`,
+      message: `Successfully enabled soft deletes for leader index "${leader_index}" on your leader cluster`,
       response: resp.data,
       verbose,
     });

@@ -2,8 +2,7 @@ const { handler } = require('./handler');
 
 module.exports = {
   command: 'stats',
-  describe:
-    'Get follower stats. This command returns shard-level stats about the following tasks associated with each shard for the specified indices.',
+  describe: 'Get follower stats on your follower cluster.',
   builder: {
     index: {
       alias: 'i',

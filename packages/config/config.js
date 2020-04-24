@@ -1,7 +1,8 @@
 const {
   listCmd,
   addClusterCmd,
-  setCurrentClusterCmd,
+  setLeaderClusterCmd,
+  setFollowerClusterCmd,
   deleteClusterCmd,
 } = require('./commands/index');
 
@@ -13,7 +14,8 @@ module.exports = {
       .usage('Usage: $0 config <command> [options]')
       .command(listCmd)
       .command(addClusterCmd)
-      .command(setCurrentClusterCmd)
+      .command(setLeaderClusterCmd)
+      .command(setFollowerClusterCmd)
       .command(deleteClusterCmd)
       .option('url', {
         alias: 'u',

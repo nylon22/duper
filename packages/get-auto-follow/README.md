@@ -1,6 +1,6 @@
 # @duper/get-auto-follow
 
-> Get configured auto-follow patterns. This command will return the specified auto-follow pattern collection.
+> Get configured auto-follow patterns on your follower cluster.
 
 ## Usage
 

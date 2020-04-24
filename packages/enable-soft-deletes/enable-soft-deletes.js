@@ -7,7 +7,8 @@ module.exports = {
   builder: {
     leader_index: {
       alias: 'l',
-      desc: 'The name of the leader cluster that the current (follower) cluster should pull from',
+      desc:
+        'The name of the leader index on your leader cluster that soft deletes should be enabled for.',
       type: 'string',
       demandOption: true,
     },

@@ -1,12 +1,12 @@
 const axios = require('axios');
 const sysPath = require('path');
-const { getCurrentCluster, logESSuccess, logESFailure } = require('@duper/utils');
+const { getFollowerCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
 const handler = async ({ auto_follow_pattern_name, verbose }) => {
-  const clusterUrl = await getCurrentCluster();
+  const { url: followerUrl } = await getFollowerCluster();
 
   const requestPath = '_ccr/auto_follow';
-  const requestUrl = sysPath.join(clusterUrl, requestPath, auto_follow_pattern_name, 'pause');
+  const requestUrl = sysPath.join(followerUrl, requestPath, auto_follow_pattern_name, 'pause');
 
   try {
     const resp = await axios({
@@ -15,7 +15,7 @@ const handler = async ({ auto_follow_pattern_name, verbose }) => {
     });
 
     logESSuccess({
-      message: `Successfully paused auto follow pattern "${auto_follow_pattern_name}"`,
+      message: `Successfully paused auto follow pattern "${auto_follow_pattern_name}" on your follower cluster`,
       response: resp.data,
       verbose,
     });

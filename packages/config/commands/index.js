@@ -1,11 +1,13 @@
 const addClusterCmd = require('./add-cluster');
 const deleteClusterCmd = require('./delete-cluster');
 const listCmd = require('./list');
-const setCurrentClusterCmd = require('./set-current-cluster');
+const setFollowerClusterCmd = require('./set-follower-cluster');
+const setLeaderClusterCmd = require('./set-leader-cluster');
 
 module.exports = {
   addClusterCmd,
   deleteClusterCmd,
   listCmd,
-  setCurrentClusterCmd,
+  setFollowerClusterCmd,
+  setLeaderClusterCmd,
 };

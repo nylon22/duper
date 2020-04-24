@@ -15,7 +15,7 @@ const handler = async ({ url, name, verbose }) => {
   }
 
   const config = await getConfigurationFile();
-  let { current, clusters = [] } = config;
+  let { clusters = [] } = config;
 
   const clusterAlreadyExists = clusters.some((cluster) => cluster.name === name);
 
@@ -28,11 +28,6 @@ const handler = async ({ url, name, verbose }) => {
 
   clusters.push({ url, name });
   config.clusters = clusters;
-
-  // Set the current cluster if they do not have one
-  if (!current || config.clusters.length === 1) {
-    config.current = name;
-  }
 
   await writeConfigurationFile({ config });
 
