@@ -2,7 +2,7 @@
   "name": "duper",
   "private": true,
   "version": "1.0.0-alpha.0",
-  "description": "A command line tool for managing Elasticsearch Cross-cluster Replication",
+  "description": "A command line tool that makes administering Elasticsearch Cross-cluster Replication easy",
   "author": "Tyson Warner <tyrules3@yahoo.com>",
   "license": "MIT",
   "publishConfig": {

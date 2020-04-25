@@ -5,7 +5,7 @@ const {
   logFailure,
 } = require('@duper/utils');
 
-const handler = async ({ url, name, verbose }) => {
+const handler = async ({ url, name, verbose, role }) => {
   if (!url) {
     throw new Error('Missing required argument: url');
   }
@@ -28,6 +28,15 @@ const handler = async ({ url, name, verbose }) => {
 
   clusters.push({ url, name });
   config.clusters = clusters;
+
+  if (role) {
+    if (role === 'leader') {
+      role.leaderCluster = name;
+    } else if (role === 'follower') {
+      role.followerCluster = name;
+    }
+
+  }
 
   await writeConfigurationFile({ config });
 

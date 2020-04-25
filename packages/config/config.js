@@ -28,6 +28,12 @@ module.exports = {
         desc: 'The friendly name for the Elasticsearch cluster',
         type: 'string',
         global: true,
+      })
+      .option('role', {
+        alias: 'r',
+        desc: 'The role of the cluster',
+        choices: ['leader', 'follower'],
+        global: true,
       });
 
     // If they don't specify a sub-command of "config", show the help

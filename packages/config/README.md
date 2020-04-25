@@ -34,6 +34,7 @@ $ duper config add-cluster [options]
 | -------- | ----------- | ------- | -------- | ---------- |
 | `url` | The url of the Elasticsearch cluster | `string` | `u` | **True** |
 | `name` | The friendly name for the Elasticsearch cluster | `string` | `n` | **True** |
+| `role` | The role for the Elasticsearch cluster | `enum<leader, follower>` | `r` | False |
 
 ### Set Follower Cluster Command
 

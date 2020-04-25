@@ -1,14 +1,12 @@
 # duper
 
-> A command line tool that simplifies Elasticsearch Cross-cluster Replication
+> A command line tool that makes administering Elasticsearch Cross-cluster Replication easy
 
 ## Why duper
 
-duper reduces the cognitive load required to manage CCR by allowing you to specify a leader cluster and a follower cluster in your duper configuration. This saves you the headache of having to figure out which commands to run on which cluster.
-
 Cross-datacenter replication of Elasticsearch clusters is a necessity for fault-tolerant production systems. Elasticsearch's Cross Cluster Replication (CCR) API satisfies this need. Elasticsearch provides a UI to administer CCR via its Kibana offering. So why use duper? If you prefer the command line, `duper` is the tool for you.
 
-For more on CCR, check out the [Elasticsearch blog](https://www.elastic.co/blog/cross-datacenter-replication-with-elasticsearch-cross-cluster-replication) and the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-apis.html)
+For more on CCR, check out the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-apis.html)
 
 ## Installation
 
@@ -23,28 +21,16 @@ Let's say we have two clusters running on our local machine: `us-cluster`, which
 1. Configure the `us-cluster`
 
 ```sh
-$ duper config add-cluster --name us-cluster --url http://localhost:9200
+$ duper config add-cluster --name us-cluster --url http://localhost:9200 --role leader
 ```
 
 2. Configure the `japan-cluster` 
 
 ```sh
-$ duper config add-cluster --name japan-cluster --url http://localhost:8200
+$ duper config add-cluster --name japan-cluster --url http://localhost:8200 --role follower
 ```
 
-3. Set `us-cluster` as your leader cluster
-
-```sh
-$ duper config set-leader-cluster --name us-cluster
-```
-
-4. Set `japan-cluster` as your follower cluster
-
-```sh
-$ duper config set-follower-cluster --name japan-cluster
-```
-
-5. Set up connectivity between your follower cluster and your leader cluster
+3. Set up connectivity between your follower cluster and your leader cluster
 
 ```sh
 $ duper connect --seeds "127.0.0.1:9300"
@@ -52,19 +38,19 @@ $ duper connect --seeds "127.0.0.1:9300"
 
 **Note** You might notice we use port **9300**. That is the default port used for node-to-node communication.
 
-7. Enable soft deletes on your leader index. Soft deletes are required for an index to serve as a leader index for CCR
+4. Enable soft deletes on your leader index. Soft deletes are required for an index to serve as a leader index for CCR
 
 ```sh
 $ duper enable-soft-deletes --leader_index products
 ```
 
-4. Replicate the `products` index on your leader cluster to the `products-copy` index on your follower cluster
+5. Replicate the `products` index on your leader cluster to the `products-copy` index on your follower cluster
 
 ```sh
 $ duper follow --follower_index products-copy --leader_index products
 ```
 
-The Getting Started section was inspired by the  [Elasticsearch tutorial on CCR](https://www.elastic.co/blog/cross-datacenter-replication-with-elasticsearch-cross-cluster-replication).
+The Getting Started section was inspired by the [Elasticsearch tutorial on CCR](https://www.elastic.co/blog/cross-datacenter-replication-with-elasticsearch-cross-cluster-replication).
 
 ## Commands
 
