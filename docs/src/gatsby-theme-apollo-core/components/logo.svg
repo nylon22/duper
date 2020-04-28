@@ -1,0 +1,17 @@
+<svg width="459" height="200" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="202" width="461" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <text stroke="#2b7c69" transform="matrix(6.464327335357666,0,0,3.5611913204193115,-945.3286290168762,-791.3280807808042) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_3" y="300.453125" x="173" stroke-width="0" fill="#2075d6"/>
+  <text stroke="#2b7c69" transform="matrix(5.56932708204109,0,0,5.02065424816196,-1745.614203450302,-1040.8645468325058) " xml:space="preserve" text-anchor="start" font-family="Arvo, sans-serif" font-size="24" id="svg_5" y="236.622384" x="316.798016" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#2075d6">duper</text>
+  <path id="svg_12" d="m426.134966,99.690858c0,3.405756 -9.625873,6.166667 -21.499989,6.166667m21.499989,-6.166667l0,0c0,3.405756 -9.625873,6.166667 -21.499989,6.166667c-11.874112,0 -21.499982,-2.760906 -21.499982,-6.166667m0,0l0,0c0,-3.405752 9.62587,-6.166665 21.499982,-6.166665c11.874116,0 21.499989,2.760913 21.499989,6.166665l0,24.666678c0,3.405752 -9.625873,6.166656 -21.499989,6.166656c-11.874112,0 -21.499982,-2.760904 -21.499982,-6.166656l0,-24.666678z" stroke-opacity="null" stroke-width="0" stroke="#2b7c69" fill="#f4d03f"/>
+  <path stroke="#2b7c69" id="svg_13" d="m411.13497,114.69086c0,3.40575 -9.62588,6.16667 -21.49999,6.16667m21.49999,-6.16667l0,0c0,3.40575 -9.62588,6.16667 -21.49999,6.16667c-11.87412,0 -21.49999,-2.76091 -21.49999,-6.16667m0,0l0,0c0,-3.40575 9.62587,-6.16667 21.49999,-6.16667c11.87411,0 21.49999,2.76092 21.49999,6.16667l0,24.66668c0,3.40575 -9.62588,6.16665 -21.49999,6.16665c-11.87412,0 -21.49999,-2.7609 -21.49999,-6.16665l0,-24.66668z" stroke-opacity="null" stroke-width="0" fill="#d13b3b"/>
+ </g>
+</svg>
