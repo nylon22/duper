@@ -1,0 +1,28 @@
+:not(pre) > code[class*="language-"] {
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  font-size: 0.9em;
+  color: #d13b3b;
+  background: #ebeef0;
+}
+
+pre[class*="language-"],
+code[class*="language-"] {
+  color: #2075d6;
+}
+
+.gatsby-highlight pre[class*="language-"].line-numbers {
+  padding-left: 0.5em;
+}
+
+pre[class*="language-"].line-numbers {
+  position: inherit;
+}
+
+span[class="title-sidebar"] {
+  float: left;
+}
+
+svg {
+  float: right !important;
+}
