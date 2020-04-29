@@ -1,27 +1,31 @@
-const axios = require('axios');
-const sysPath = require('path');
-const { getFollowerCluster, logESSuccess, logESFailure } = require('@duper/utils');
+const { Client } = require('@elastic/elasticsearch');
+const { builder } = require('./builder');
+const {
+  getFollowerCluster,
+  logESSuccess,
+  logESFailure,
+  getValidatedArguments,
+} = require('@duper/utils');
 
-const handler = async ({ follower_index, verbose, ...payload }) => {
+const handler = async ({ follower_index, verbose, ...args }) => {
   const { url: followerUrl } = await getFollowerCluster();
 
-  const requestPath = '_ccr/resume_follow';
-  const requestUrl = sysPath.join(followerUrl, follower_index, requestPath);
+  const client = new Client({ node: followerUrl });
+  const payload = getValidatedArguments({ builder, args });
 
   try {
-    const resp = await axios({
-      method: 'POST',
-      url: requestUrl,
-      data: payload,
+    const resp = await client.ccr.resumeFollow({
+      index: follower_index,
+      body: payload,
     });
 
     logESSuccess({
       message: `Successfully resumed following from "${follower_index}"`,
-      response: resp.data,
+      response: resp.body,
       verbose,
     });
   } catch (error) {
-    logESFailure({ error, verbose });
+    logESFailure({ error });
   }
 };
 

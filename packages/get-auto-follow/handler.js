@@ -1,22 +1,19 @@
-const axios = require('axios');
-const sysPath = require('path');
+const { Client } = require('@elastic/elasticsearch');
 const { getFollowerCluster, logESFailure } = require('@duper/utils');
 
-const handler = async ({ auto_follow_pattern_name = '', verbose }) => {
+const handler = async ({ auto_follow_pattern_name = '' }) => {
   const { url: followerUrl } = await getFollowerCluster();
 
-  const requestPath = '_ccr/auto_follow';
-  const requestUrl = sysPath.join(followerUrl, requestPath, auto_follow_pattern_name);
+  const client = new Client({ node: followerUrl });
 
   try {
-    const resp = await axios({
-      method: 'GET',
-      url: requestUrl,
+    const resp = await client.ccr.getAutoFollowPattern({
+      name: auto_follow_pattern_name,
     });
 
-    console.log(JSON.stringify(resp.data, null, 2));
+    console.log(JSON.stringify(resp.body, null, 2));
   } catch (error) {
-    logESFailure({ error, verbose });
+    logESFailure({ error });
   }
 };
 

@@ -13,4 +13,4 @@ duper config set-leader-cluster [options]
 
 | Option | Description | Type | Alias | Required |
 | -------- | ----------- | ------- | ------- | -------- |
-| `name` | The friendly name for the Elasticsearch cluster | `string` | `n` | **True** |
+| `name` | The cluster name as defined by the `cluster.name` setting for the cluster | `string` | `n` | **True** |

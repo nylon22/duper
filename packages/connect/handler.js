@@ -1,5 +1,4 @@
-const axios = require('axios');
-const sysPath = require('path');
+const { Client } = require('@elastic/elasticsearch');
 const set = require('lodash.set');
 const {
   getFollowerCluster,
@@ -12,33 +11,27 @@ const handler = async ({ seeds, verbose }) => {
   const { url: followerUrl } = await getFollowerCluster();
   const { name: remote_cluster } = await getLeaderCluster();
 
+  const client = new Client({ node: followerUrl });
+
   try {
     // Get the cluster settings
-    const requestPath = '_cluster/settings';
-    const requestUrl = sysPath.join(followerUrl, requestPath);
-
-    const { data } = await axios({
-      method: 'GET',
-      url: requestUrl,
-    });
+    const { body: data } = await client.cluster.getSettings();
 
     // Add the remote cluster and seeds to the cluster settings
     set(data, `persistent.cluster.remote.${remote_cluster}`, { seeds });
 
     // Save the updated cluster settings
-    const resp = await axios({
-      method: 'PUT',
-      requestUrl,
-      data,
+    const resp = await client.cluster.putSettings({
+      body: data,
     });
 
     logESSuccess({
-      message: `Successfully added leader cluster "${remote_cluster}" to your follower cluster`,
-      response: resp.data,
+      message: `Successfully connected leader cluster "${remote_cluster}" to your follower cluster`,
+      response: resp.body,
       verbose,
     });
   } catch (error) {
-    logESFailure({ error, verbose });
+    logESFailure({ error });
   }
 };
 

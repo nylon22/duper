@@ -21,7 +21,6 @@ yargs
   .showHelpOnFail(true)
   .command(require('@duper/config'))
   .command(require('@duper/connect'))
-  .command(require('@duper/enable-soft-deletes'))
   .command(require('@duper/follow'))
   .command(require('@duper/pause'))
   .command(require('@duper/resume'))

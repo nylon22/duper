@@ -1,24 +1,26 @@
-const axios = require('axios');
-const sysPath = require('path');
+const { Client } = require('@elastic/elasticsearch');
 const { getFollowerCluster, logESFailure } = require('@duper/utils');
 
-const handler = async ({ index, verbose }) => {
+const handler = async ({ index = [], level }) => {
   const { url: followerUrl } = await getFollowerCluster();
 
-  const _index = index.join(',');
+  // Return stats about all follower indices if index is not provided
+  const emptyIndex = !index || (Array.isArray(index) && index.length === 0);
+  const _index = emptyIndex ? '_all' : index.join(',');
 
-  const requestPath = '_ccr/stats';
-  const requestUrl = sysPath.join(followerUrl, _index, requestPath);
+  const client = new Client({ node: followerUrl });
 
   try {
-    const resp = await axios({
-      method: 'GET',
-      url: requestUrl,
-    });
+    let resp;
+    if (level === 'shard') {
+      resp = await client.ccr.followStats({ index: _index });
+    } else if (level === 'cluster') {
+      resp = await client.ccr.stats();
+    }
 
-    console.log(JSON.stringify(resp.data, null, 2));
+    console.log(JSON.stringify(resp.body, null, 2));
   } catch (error) {
-    logESFailure({ error, verbose });
+    logESFailure({ error });
   }
 };
 

@@ -1,26 +1,23 @@
-const axios = require('axios');
-const sysPath = require('path');
+const { Client } = require('@elastic/elasticsearch');
 const { getFollowerCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
 const handler = async ({ follower_index, verbose }) => {
   const { url: followerUrl } = await getFollowerCluster();
 
-  const requestPath = '_ccr/unfollow';
-  const requestUrl = sysPath.join(followerUrl, follower_index, requestPath);
+  const client = new Client({ node: followerUrl });
 
   try {
-    const resp = await axios({
-      method: 'POST',
-      url: requestUrl,
+    const resp = await client.ccr.unfollow({
+      index: follower_index,
     });
 
     logESSuccess({
-      message: `Successfully unfollowed from "${follower_index}"`,
-      response: resp.data,
+      message: `Successfully unfollowed the leader index that "${follower_index}" was following`,
+      response: resp.body,
       verbose,
     });
   } catch (error) {
-    logESFailure({ error, verbose });
+    logESFailure({ error });
   }
 };
 

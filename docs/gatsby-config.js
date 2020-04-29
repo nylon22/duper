@@ -68,10 +68,7 @@ module.exports = {
             "commands/config-set-follower-cluster",
             "commands/config-set-leader-cluster",
           ],
-          "Enable CCR Commands": [
-            "commands/connect",
-            "commands/enable-soft-deletes",
-          ],
+          "Enable CCR Commands": ["commands/connect"],
           "CCR Commands": [
             "commands/follow",
             "commands/forget",

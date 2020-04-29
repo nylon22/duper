@@ -31,11 +31,10 @@ const handler = async ({ url, name, verbose, role }) => {
 
   if (role) {
     if (role === 'leader') {
-      role.leaderCluster = name;
+      config.leaderCluster = name;
     } else if (role === 'follower') {
-      role.followerCluster = name;
+      config.followerCluster = name;
     }
-
   }
 
   await writeConfigurationFile({ config });

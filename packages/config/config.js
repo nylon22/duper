@@ -25,7 +25,7 @@ module.exports = {
       })
       .option('name', {
         alias: 'n',
-        desc: 'The friendly name for the Elasticsearch cluster',
+        desc: 'The cluster name as defined by the cluster.name setting for the cluster',
         type: 'string',
         global: true,
       })

@@ -20,6 +20,6 @@
   },
   "dependencies": {
     "@duper/utils": "1.0.0-alpha.0",
-    "axios": "^0.19.2"
+    "@elastic/elasticsearch": "^7.6.1"
   }
 }

@@ -58,13 +58,10 @@ const logESSuccess = ({ message, response, verbose }) => {
   }
 };
 
-const logESFailure = ({ error, verbose }) => {
-  console.log(chalk['red'](error.message));
-
-  if (verbose) {
-    console.log('\nStack Trace\n');
-    console.log(error.stack);
-  }
+const logESFailure = ({ error }) => {
+  console.log(chalk['red'](`Status Code: ${error.meta.statusCode}`));
+  console.log('\nError Detail:\n');
+  console.log(error.meta.body.error);
 };
 
 const log = ({ message, verbose, verboseMessage, color }) => {
@@ -83,6 +80,17 @@ const logFailure = ({ ...args }) => {
   log({ ...args, color: 'red' });
 };
 
+// Function that returns only the arguments specified in the builder for the command
+const getValidatedArguments = ({ builder, args }) => {
+  const validArguments = Object.keys(builder);
+  return Object.entries(args).reduce((accum, [key, value]) => {
+    if (validArguments.includes(key)) {
+      accum[key] = value;
+    }
+    return accum;
+  }, {});
+};
+
 module.exports = {
   getConfigurationFile,
   getLeaderCluster,
@@ -92,4 +100,5 @@ module.exports = {
   logESFailure,
   logSuccess,
   logFailure,
+  getValidatedArguments,
 };

@@ -1,36 +1,34 @@
-const axios = require('axios');
-const sysPath = require('path');
+const { Client } = require('@elastic/elasticsearch');
+const { builder } = require('./builder');
 const {
   getFollowerCluster,
   getLeaderCluster,
   logESSuccess,
   logESFailure,
+  getValidatedArguments,
 } = require('@duper/utils');
 
-const handler = async ({ follower_index, wait_for_active_shards, verbose, ...payload }) => {
+const handler = async ({ follower_index, wait_for_active_shards, verbose, ...args }) => {
   const { url: followerUrl } = await getFollowerCluster();
   const { name: remote_cluster } = await getLeaderCluster();
 
-  const requestPath = '_ccr/follow';
-  const requestUrl = sysPath.join(followerUrl, follower_index, requestPath);
+  const client = new Client({ node: followerUrl });
+  const payload = getValidatedArguments({ builder, args });
 
   try {
-    const resp = await axios({
-      method: 'PUT',
-      url: requestUrl,
-      data: { remote_cluster, ...payload },
-      params: {
-        wait_for_active_shards,
-      },
+    const resp = await client.ccr.follow({
+      index: follower_index,
+      wait_for_active_shards,
+      body: { remote_cluster, ...payload },
     });
 
     logESSuccess({
       message: `Successfully followed "${payload.leader_index}" from "${follower_index}"`,
-      response: resp.data,
+      response: resp.body,
       verbose,
     });
   } catch (error) {
-    logESFailure({ error, verbose });
+    logESFailure({ error });
   }
 };
 
