@@ -27,6 +27,7 @@
     "@duper/follow": "1.0.0-alpha.0",
     "@duper/forget": "1.0.0-alpha.0",
     "@duper/info": "1.0.0-alpha.0",
+    "@duper/open": "1.0.0-alpha.0",
     "@duper/pause": "1.0.0-alpha.0",
     "@duper/pause-auto-follow": "1.0.0-alpha.0",
     "@duper/resume": "1.0.0-alpha.0",

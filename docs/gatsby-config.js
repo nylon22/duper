@@ -3,7 +3,7 @@ module.exports = {
   siteMetadata: {
     siteName: `duper`,
     title: `duper Docs`,
-    description: `A command line tool that makes administering Elasticsearch Cross-cluster Replication easy`,
+    description: `A command line tool that makes administering Elasticsearch Cross-cluster Replication easy`
   },
   plugins: [
     `gatsby-plugin-sharp`,
@@ -11,8 +11,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/source/images`,
-      },
+        path: `${__dirname}/source/images`
+      }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -25,14 +25,14 @@ module.exports = {
         background_color: `#0E2339`,
         theme_color: `#0E2339`,
         display: `minimal-ui`,
-        icon: `src/gatsby-theme-apollo-core/components/logo.svg`,
-      },
+        icon: `src/gatsby-theme-apollo-core/components/logo.svg`
+      }
     },
     {
       resolve: "gatsby-plugin-antd",
       options: {
-        style: false,
-      },
+        style: false
+      }
     },
     {
       resolve: "gatsby-theme-apollo-docs",
@@ -41,7 +41,7 @@ module.exports = {
         menuTitle: "duper documentation",
         version: "1",
         fields: {
-          version: "1",
+          version: "1"
         },
         baseUrl: "https://duper.github.io",
         contentDir: "source",
@@ -56,8 +56,8 @@ module.exports = {
         navConfig: {
           Github: {
             url: "https://github.com/nylon22/duper",
-            description: "duper on Github",
-          },
+            description: "duper on Github"
+          }
         },
         sidebarCategories: {
           null: ["index", "getting-started"],
@@ -66,10 +66,10 @@ module.exports = {
             "commands/config-delete-cluster",
             "commands/config-list",
             "commands/config-set-follower-cluster",
-            "commands/config-set-leader-cluster",
+            "commands/config-set-leader-cluster"
           ],
           "Enable CCR Commands": ["commands/connect"],
-          "Open/Close Index Commands": ["commands/close", "commands/open"],
+          "Open/Close Index Commands": ["commands/open", "commands/close"],
           "CCR Commands": [
             "commands/follow",
             "commands/forget",
@@ -77,17 +77,17 @@ module.exports = {
             "commands/pause",
             "commands/resume",
             "commands/stats",
-            "commands/unfollow",
+            "commands/unfollow"
           ],
           "Auto-Follow CCR Commands": [
             "commands/auto-follow",
             "commands/delete-auto-follow",
             "commands/get-auto-follow",
             "commands/pause-auto-follow",
-            "commands/resume-auto-follow",
-          ],
-        },
-      },
-    },
-  ],
+            "commands/resume-auto-follow"
+          ]
+        }
+      }
+    }
+  ]
 }
