@@ -69,6 +69,7 @@ module.exports = {
             "commands/config-set-leader-cluster",
           ],
           "Enable CCR Commands": ["commands/connect"],
+          "Open/Close Index Commands": ["commands/close", "commands/open"],
           "CCR Commands": [
             "commands/follow",
             "commands/forget",

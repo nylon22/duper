@@ -1,7 +1,8 @@
 const builder = {
   index: {
     alias: 'i',
-    desc: 'Index patterns to retrieve stats for',
+    desc:
+      'Indices to retrieve stats for. If not provided, stats for all follower indices are listed',
     type: 'array',
   },
   level: {

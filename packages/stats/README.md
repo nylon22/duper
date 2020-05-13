@@ -12,7 +12,7 @@ $ duper stats [options]
 
 | Option | Description | Type | Alias | Required |
 | -------- | ----------- | ------- | --------- | ------ |
-| `index` | Index patterns to retrieve stats for. If not provided, stats for all follower indices are listed | `array` | `i` | False |
+| `index` | Indices to retrieve stats for. If not provided, stats for all follower indices are listed | `array` | `i` | False |
 | `level` | Specify whether to get stats at the shard or the cluster level **Default:** "shard" | `enum<shard, cluster>` | `i` | False |
 
 

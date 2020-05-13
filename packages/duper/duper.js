@@ -33,6 +33,7 @@ yargs
   .command(require('@duper/resume-auto-follow'))
   .command(require('@duper/delete-auto-follow'))
   .command(require('@duper/get-auto-follow'))
+  .command(require('@duper/close'))
   .recommendCommands()
   .parse(process.argv.slice(2));
 
