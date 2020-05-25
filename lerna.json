@@ -1,0 +1,16 @@
+
+{
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "version": "fixed",
+  "packages": [
+    "packages/*",
+    "docs"
+  ],
+  "message": "chore: publish release [skip ci]",
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    }
+  }
+}

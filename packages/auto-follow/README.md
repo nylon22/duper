@@ -12,9 +12,9 @@ $ duper auto-follow [options]
 
 | Option | Description | Type | Alias | Required |
 | -------- | ----------- | ------- | -------- | -------- |
-| `auto_follow_pattern_name` | The name of the collection of auto-follow patterns | `string` | | **True** |
-| `leader_index_patterns` | An array of simple index patterns to follow on your leader cluster | `array` | | False |
-| `follow_index_pattern` | The name of follower index. The template {{leader_index}} can be used to derive the name of the follower index from the name of the leader index. | `string` | | False |
+| `auto_follow_pattern_name` | The name of the collection of auto-follow patterns | `string` | `p` | **True** |
+| `leader_index_patterns` | An array of simple index patterns to follow on your leader cluster | `array` | `l` | False |
+| `follow_index_pattern` | The name of follower index. The template {{leader_index}} can be used to derive the name of the follower index from the name of the leader index. | `string` | `f` | False |
 | `max_read_request_operation_count` | The maximum number of operations to pull per read from your leader cluster. | `number` | | False |
 | `max_outstanding_read_requests` | The maximum number of outstanding reads requests from your leader cluster. | `number` | | False |
 | `max_read_request_size` | The maximum total bytes of operations per bulk write request executed on the follower. | `string` | | False |

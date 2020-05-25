@@ -31,6 +31,7 @@ const handler = async ({ seeds, verbose }) => {
       verbose,
     });
   } catch (error) {
+    console.log(error);
     logESFailure({ error });
   }
 };

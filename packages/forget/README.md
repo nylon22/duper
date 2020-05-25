@@ -14,7 +14,6 @@ $ duper forget [options]
 | -------- | ----------- | ------- | ------- | --------- |
 | `leader_index` | The name of the leader index. | `string` | | **True** |
 | `follower_index` | The name of the follower index. | `string` | | **True** |
-| `follower_index_uuid` | The UUID of the follower index. | `string` | | **True** |
 
 ### Additional Information
 

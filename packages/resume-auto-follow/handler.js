@@ -12,7 +12,7 @@ const handler = async ({ auto_follow_pattern_name, verbose }) => {
     });
 
     logESSuccess({
-      message: `Successfully resumed auto-following pattern "${auto_follow_pattern_name} on your follower cluster"`,
+      message: `Successfully resumed auto-following patterns under "${auto_follow_pattern_name}" created on your leader cluster`,
       response: resp.body,
       verbose,
     });

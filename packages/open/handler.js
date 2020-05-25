@@ -8,8 +8,8 @@ const {
   getValidatedArguments,
 } = require('@duper/utils');
 
-const open = async ({ clusterUrl, clusterName, index, verbose, args }) => {
-  const client = new Client({ node: clusterUrl });
+const open = async ({ node, clusterName, index, verbose, args }) => {
+  const client = new Client({ node });
   const payload = getValidatedArguments({ builder, args });
 
   try {

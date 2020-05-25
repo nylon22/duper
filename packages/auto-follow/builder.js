@@ -1,16 +1,19 @@
 const builder = {
   auto_follow_pattern_name: {
     desc: 'The name of the collection of auto-follow patterns',
+    alias: 'p',
     type: 'string',
     demandOption: true,
   },
   leader_index_patterns: {
     desc: 'An array of simple index patterns to match against indices in your leader cluster',
+    alias: 'l',
     type: 'array',
   },
   follow_index_pattern: {
     desc:
       'The name of follower index. The template {{leader_index}} can be used to derive the name of the follower index from the name of the leader index.',
+    alias: 'f',
     type: 'string',
   },
   max_read_request_operation_count: {

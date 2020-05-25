@@ -1,29 +1,33 @@
 const { Client } = require('@elastic/elasticsearch');
-const { builder } = require('./builder');
 const {
-  getFollowerCluster,
   getLeaderCluster,
+  getFollowerCluster,
   logESSuccess,
   logESFailure,
-  getValidatedArguments,
 } = require('@duper/utils');
 
-const handler = async ({ leader_index, verbose, ...args }) => {
-  const { url: followerUrl } = await getFollowerCluster();
-  const { name: leader_remote_cluster } = getLeaderCluster();
+const handler = async ({ leader_index, follower_index, verbose}) => {
+  const { url: leaderUrl, name: leader_remote_cluster } = await getLeaderCluster();
+  const { url: followerUrl, name: follower_cluster } = await getFollowerCluster();
 
-  const client = new Client({ node: followerUrl });
-  const payload = getValidatedArguments({ builder, args });
+  // Get the uuid of the follower index
+  const followerClient = new Client({ node: followerUrl });
+
+  const leaderClient = new Client({ node: leaderUrl });
 
   try {
-    const resp = await client.ccr.forgetFollower({
+    // Get the uuid of the follower index
+    const resp1 = await followerClient.indices.getSettings({ index: follower_index, name: 'index.uuid' });
+    const { uuid: follower_index_uuid } = resp1.body[follower_index].settings.index;
+
+    const resp2 = await leaderClient.ccr.forgetFollower({
       index: leader_index,
-      body: { leader_remote_cluster, ...payload },
+      body: { follower_cluster, leader_remote_cluster, follower_index, follower_index_uuid },
     });
 
     logESSuccess({
       message: `Successfully forgot "${leader_index}"`,
-      response: resp.body,
+      response: resp2.body,
       verbose,
     });
   } catch (error) {

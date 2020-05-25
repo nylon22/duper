@@ -59,9 +59,13 @@ const logESSuccess = ({ message, response, verbose }) => {
 };
 
 const logESFailure = ({ error }) => {
-  console.log(chalk['red'](`Status Code: ${error.meta.statusCode}`));
-  console.log('\nError Detail:\n');
-  console.log(error.meta.body.error);
+  if (error && error.meta && !!error.meta.statusCode) {
+    console.log(chalk['red'](`Status Code: ${error.meta.statusCode}`));
+    console.log('\nError Detail:\n');
+    console.log(error.meta.body.error);
+  } else {
+    console.log(error);
+  }
 };
 
 const log = ({ message, verbose, verboseMessage, color }) => {
