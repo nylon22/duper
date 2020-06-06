@@ -6,7 +6,7 @@ const {
   logESFailure,
 } = require('@duper/utils');
 
-const handler = async ({ leader_index, follower_index, verbose}) => {
+const handler = async ({ leader_index, follower_index, verbose }) => {
   const { url: leaderUrl, name: leader_remote_cluster } = await getLeaderCluster();
   const { url: followerUrl, name: follower_cluster } = await getFollowerCluster();
 
@@ -26,7 +26,7 @@ const handler = async ({ leader_index, follower_index, verbose}) => {
     });
 
     logESSuccess({
-      message: `Successfully forgot "${leader_index}"`,
+      message: `Successfully forgot "${leader_index}" on "${leader_remote_cluster}"`,
       response: resp2.body,
       verbose,
     });

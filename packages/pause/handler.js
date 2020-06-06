@@ -2,7 +2,7 @@ const { Client } = require('@elastic/elasticsearch');
 const { getFollowerCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
 const handler = async ({ follower_index, verbose }) => {
-  const { url: followerUrl } = await getFollowerCluster();
+  const { url: followerUrl, name: followerCluster } = await getFollowerCluster();
 
   const client = new Client({ node: followerUrl });
 
@@ -12,7 +12,7 @@ const handler = async ({ follower_index, verbose }) => {
     });
 
     logESSuccess({
-      message: `Successfully paused follower index "${follower_index}" on your follower cluster`,
+      message: `Successfully paused follower index "${follower_index}" on "${followerCluster}"`,
       response: resp.body,
       verbose,
     });

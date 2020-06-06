@@ -1,3 +1,3 @@
 # @duper/utils
 
-> duper utitility functions
+> duper utility functions

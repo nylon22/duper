@@ -1,8 +1,9 @@
 const { Client } = require('@elastic/elasticsearch');
-const { getFollowerCluster, logESSuccess, logESFailure } = require('@duper/utils');
+const { getFollowerCluster, getLeaderCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
 const handler = async ({ auto_follow_pattern_name, verbose }) => {
   const { url: followerUrl } = await getFollowerCluster();
+  const { name: leaderCluster } = await getLeaderCluster();
 
   const client = new Client({ node: followerUrl });
 
@@ -12,7 +13,7 @@ const handler = async ({ auto_follow_pattern_name, verbose }) => {
     });
 
     logESSuccess({
-      message: `Successfully resumed auto-following patterns under "${auto_follow_pattern_name}" created on your leader cluster`,
+      message: `Successfully resumed auto-following patterns matching "${auto_follow_pattern_name}" created on "${leaderCluster}"`,
       response: resp.body,
       verbose,
     });

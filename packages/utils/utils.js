@@ -102,6 +102,7 @@ module.exports = {
   writeConfigurationFile,
   logESSuccess,
   logESFailure,
+  log,
   logSuccess,
   logFailure,
   getValidatedArguments,

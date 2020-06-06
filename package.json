@@ -12,12 +12,22 @@
     "packages/*"
   ],
   "dependencies": {},
+  "scripts" : {
+    "test": "jest",
+    "test:ci": "jest --runInBand --collectCoverage"
+  },
+  "jest": {
+    "testURL": "http://localhost/",
+    "testEnvironment": "node"
+  },
   "devDependencies": {
+    "@elastic/elasticsearch-mock": "^0.2.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-unicorn": "^18.0.1",
+    "jest": "^26.0.1",
     "prettier": "^2.0.4"
   }
 }

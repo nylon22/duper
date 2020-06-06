@@ -5,8 +5,8 @@ const handler = async ({ index }) => {
   const { url: followerUrl } = await getFollowerCluster();
 
   // Return info about all follower indices if index is not provided
-  const emptyIndex = !index || (Array.isArray(index) && index.length === 0);
-  const _index = emptyIndex ? '_all' : index.join(',');
+  const isEmpty = !index || (Array.isArray(index) && index.length === 0);
+  const _index = isEmpty ? '_all' : index.join(',');
 
   const client = new Client({ node: followerUrl });
 

@@ -13,7 +13,7 @@ const open = async ({ node, clusterName, index, verbose, args }) => {
   const payload = getValidatedArguments({ builder, args });
 
   try {
-    const resp = await client.indices.close({
+    const resp = await client.indices.open({
       index,
       ...payload,
     });
