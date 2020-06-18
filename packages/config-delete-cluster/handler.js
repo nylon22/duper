@@ -6,10 +6,6 @@ const {
 } = require('@duper/utils');
 
 const handler = async ({ name }) => {
-  if (!name) {
-    throw new Error('Missing required argument: name');
-  }
-
   const config = await getConfigurationFile();
   let { clusters = [] } = config;
 
@@ -17,7 +13,7 @@ const handler = async ({ name }) => {
 
   if (!clusterExists) {
     logFailure({
-      message: `Cluster with name "${name}" does not exist`,
+      error: `Cluster named "${name}" does not exist`,
     });
     return;
   }
@@ -32,23 +28,19 @@ const handler = async ({ name }) => {
     delete config.leaderCluster;
   }
 
-  await writeConfigurationFile({ config });
+  try {
+    await writeConfigurationFile({ config });
 
-  logSuccess({
-    message: `Successfully deleted cluster named "${name}"`,
-  });
+    logSuccess({
+      message: `Successfully deleted cluster named "${name}"`,
+    });
+  } catch (error) {
+    logFailure({
+      error: 'Error writing duper configuration',
+      message: error.message,
+      stack: error.stack
+    });
+  }
 };
 
-module.exports = {
-  command: 'delete-cluster',
-  describe: 'Delete a Elasticsearch cluster configuration',
-  builder: {
-    name: {
-      alias: 'n',
-      desc: 'The friendly name for the Elasticsearch cluster',
-      type: 'string',
-      demandOption: true,
-    },
-  },
-  handler,
-};
+module.exports = { handler };

@@ -2,8 +2,8 @@ const { handler } = require('./handler');
 const { builder } = require('./builder');
 
 module.exports = {
-  command: 'config',
-  describe: 'Show duper configuration',
+  command: 'set-leader-cluster',
+  describe: 'Set your leader cluster',
   builder,
   handler,
 };

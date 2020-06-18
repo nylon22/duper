@@ -9,8 +9,4 @@ const handler = async () => {
   console.log(stringifiedConfig);
 };
 
-module.exports = {
-  command: 'list',
-  describe: 'Show duper configuration',
-  handler,
-};
+module.exports = { handler };

@@ -146,20 +146,16 @@ describe('utils', () => {
     });
   });
 
-  describe('log', () => {
-    it('handles non-verbose log', () => {
-      UTILS.log({ message: 'log message', verbose: false, verboseMessage: null, color: 'green' });
+  describe('logFailure', () => {
+    it('logs failure', () => {
+      UTILS.logFailure({ error: 'error', message: 'message', stack: 'stack' });
 
-      expect(consoleOutput.length).toBe(1);
-      expect(consoleOutput[0]).toContain('log message');
-    });
-
-    it('handles verbose log', () => {
-      UTILS.log({ message: 'log message', verbose: true, verboseMessage: 'moar logs', color: 'green' });
-
-      expect(consoleOutput.length).toBe(2);
-      expect(consoleOutput[0]).toContain('log message');
-      expect(consoleOutput[1]).toBe('\nmoar logs');
+      expect(consoleOutput.length).toBe(5);
+      expect(consoleOutput[0]).toContain('error');
+      expect(consoleOutput[1]).toBe('\nMessage\n');
+      expect(consoleOutput[2]).toBe('message');
+      expect(consoleOutput[3]).toBe('\nStack\n');
+      expect(consoleOutput[4]).toBe('stack');
     });
   });
 

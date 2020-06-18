@@ -2,8 +2,8 @@ const { handler } = require('./handler');
 const { builder } = require('./builder');
 
 module.exports = {
-  command: 'config',
-  describe: 'Show duper configuration',
+  command: 'add-cluster',
+  describe: 'Add an Elasticsearch cluster to your duper configuration',
   builder,
   handler,
 };

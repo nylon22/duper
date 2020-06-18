@@ -1,8 +1,8 @@
 {
-  "name": "@duper/stats",
+  "name": "@duper/config-set-leader-cluster",
   "version": "1.0.0-alpha.0",
-  "description": "Get stats",
-  "main": "stats.js",
+  "description": "Set your leader cluster",
+  "main": "set-leader-cluster.js",
   "keywords": [
     "cli",
     "elasticsearch",
@@ -10,9 +10,7 @@
     "cluster",
     "replication",
     "ccr",
-    "elastic",
-    "stats",
-    "statistics"
+    "elastic"
   ],
   "repository": {
     "type": "git",
@@ -27,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/utils": "1.0.0-alpha.0",
-    "@elastic/elasticsearch": "^7.6.1"
+    "@duper/utils": "1.0.0-alpha.0"
   }
 }
+

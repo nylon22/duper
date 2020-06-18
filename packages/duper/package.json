@@ -13,6 +13,13 @@
     "ccr",
     "elastic"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nylon22/duper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nylon22/duper/issues"
+  },
   "author": "Tyson Warner <tyrules3@yahoo.com>",
   "license": "MIT",
   "publishConfig": {
@@ -35,6 +42,10 @@
     "@duper/stats": "1.0.0-alpha.0",
     "@duper/unfollow": "1.0.0-alpha.0",
     "@duper/config": "1.0.0-alpha.0",
+    "@duper/config-add-cluster": "1.0.0-alpha.0",
+    "@duper/config-delete-cluster": "1.0.0-alpha.0",
+    "@duper/config-set-follower-cluster": "1.0.0-alpha.0",
+    "@duper/config-set-leader-cluster": "1.0.0-alpha.0",
     "chalk": "^4.0.0",
     "yargs": "^15.3.1"
   }

@@ -68,20 +68,26 @@ const logESFailure = ({ error }) => {
   }
 };
 
-const log = ({ message, verbose, verboseMessage, color }) => {
-  console.log(chalk[color](message));
+const logSuccess = ({ message, verbose, verboseMessage }) => {
+  console.log(chalk['green'](message));
 
   if (verbose && verboseMessage) {
     console.log(`\n${verboseMessage}`);
   }
 };
 
-const logSuccess = ({ ...args }) => {
-  log({ ...args, color: 'green' });
-};
+const logFailure = ({ error, message, stack}) => {
+  console.log(chalk['red'](error));
 
-const logFailure = ({ ...args }) => {
-  log({ ...args, color: 'red' });
+  if (message) {
+    console.log('\nMessage\n');
+    console.log(message);
+  }
+
+  if (stack) {
+    console.log('\nStack\n');
+    console.log(stack);
+  }
 };
 
 // Function that returns only the arguments specified in the builder for the command
@@ -102,7 +108,6 @@ module.exports = {
   writeConfigurationFile,
   logESSuccess,
   logESFailure,
-  log,
   logSuccess,
   logFailure,
   getValidatedArguments,

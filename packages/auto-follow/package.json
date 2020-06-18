@@ -4,8 +4,8 @@
   "description": "Auto-follow a pattern of leader indices",
   "main": "auto-follow.js",
   "keywords": [
-    "cli,",
-    "elasticsearch,",
+    "cli",
+    "elasticsearch",
     "cross",
     "cluster",
     "replication",
@@ -14,6 +14,13 @@
     "auto",
     "follow"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nylon22/duper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nylon22/duper/issues"
+  },
   "author": "Tyson Warner <tyrules3@yahoo.com>",
   "license": "MIT",
   "publishConfig": {
