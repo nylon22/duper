@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -10,18 +9,10 @@ const {
 jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
-getLeaderCluster.mockResolvedValue({ url: 'http://localhost:8200', name: 'us-cluster' });
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
-
-
 describe('close', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  beforeEach(() => {
-    Client.mockClear();
   });
 
   it('logs success', async () => {
@@ -40,19 +31,20 @@ describe('close', () => {
     }});
 
 
-    Client.mockImplementationOnce(() => {
-      return {
-        indices: {
-          getSettings: getSettingsMock,
-        },
-      };
-    }).mockImplementationOnce(() => {
-      return {
-        ccr: {
-          forgetFollower: forgetFollowerMock,
-        },
-      };
-    });
+
+    const followerClient = {
+      indices: {
+        getSettings: getSettingsMock,
+      },
+    };
+    const leaderClient = {
+      ccr: {
+        forgetFollower: forgetFollowerMock,
+      },
+    };
+
+    getLeaderCluster.mockResolvedValue({ client: leaderClient, name: 'us-cluster' });
+    getFollowerCluster.mockResolvedValue({ client: followerClient, name: 'japan-cluster' });
 
     await handler({ leader_index: 'products', follower_index: 'products-copy', verbose: true });
 
@@ -96,17 +88,18 @@ describe('close', () => {
 
     const forgetFollowerMock = jest.fn().mockRejectedValue(new Error('Forget Error'));
 
-
-    Client.mockImplementation(() => {
-      return {
-        indices: {
-          getSettings: getSettingsMock,
-        },
-        ccr: {
-          forgetFollower: forgetFollowerMock,
-        },
-      };
-    });
+    const followerClient = {
+      indices: {
+        getSettings: getSettingsMock,
+      },
+    };
+    const leaderClient = {
+      ccr: {
+        forgetFollower: forgetFollowerMock,
+      },
+    };
+    getLeaderCluster.mockResolvedValue({ client: leaderClient, name: 'us-cluster' });
+    getFollowerCluster.mockResolvedValue({ client: followerClient, name: 'japan-cluster' });
 
     await handler({ leader_index: 'products', follower_index: 'products-copy', verbose: true });
 

@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const {
   getLeaderCluster,
   getFollowerCluster,
@@ -7,13 +6,8 @@ const {
 } = require('@duper/utils');
 
 const handler = async ({ leader_index, follower_index, verbose }) => {
-  const { url: leaderUrl, name: leader_remote_cluster } = await getLeaderCluster();
-  const { url: followerUrl, name: follower_cluster } = await getFollowerCluster();
-
-  // Get the uuid of the follower index
-  const followerClient = new Client({ node: followerUrl });
-
-  const leaderClient = new Client({ node: leaderUrl });
+  const { name: leader_remote_cluster, client: leaderClient } = await getLeaderCluster();
+  const { name: follower_cluster, client: followerClient } = await getFollowerCluster();
 
   try {
     // Get the uuid of the follower index

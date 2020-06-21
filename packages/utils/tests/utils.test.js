@@ -2,6 +2,7 @@ const fs = require('fs');
 const sysPath = require('path');
 const globby = require('globby');
 const YAML = require('yaml');
+const { Client } = require('@elastic/elasticsearch');
 
 const UTILS = require('../utils');
 
@@ -40,10 +41,26 @@ describe('utils', () => {
       sysPath.join.mockReturnValue('/Users/nylon22/.duperrc.yml');
       globby.mockResolvedValue(['file1']);
       fs.readFileSync = jest.fn();
-      YAML.parse.mockResolvedValue({ clusters: [{ url: 'http://localhost:9200', name: 'us-cluster' }] });
+      YAML.parse.mockResolvedValue({ clusters: [{ options: { node: { url: 'http://localhost:9200' } }, name: 'us-cluster' }] });
 
       const configurationFile = await UTILS.getConfigurationFile();
-      expect(configurationFile).toEqual({ clusters: [{ url: 'http://localhost:9200', name: 'us-cluster' }] });
+      expect(configurationFile).toEqual({ clusters: [{ options: { node: { url: 'http://localhost:9200' } }, name: 'us-cluster' }] });
+    });
+  });
+
+  describe('getElasticsearchClient', () => {
+    it('builds elasticsearch client', () => {
+      const cluster = { options: { node: { url: 'http://localhost:9200' }, ssl: { key: 'key', cert: 'cert', ca: ['ca1', 'ca2'] }, auth: { username: 'user', password: 'password' } }, name: 'us-cluster' };
+
+      fs.readFileSync.mockReturnValueOnce('theKey').mockReturnValueOnce('theCert').mockReturnValueOnce('theCa1').mockReturnValueOnce('theCa2');
+
+      const client = UTILS.getElasticsearchClient({ cluster });
+      expect(client instanceof Client).toBe(true);
+      expect(fs.readFileSync).toHaveBeenCalledTimes(4);
+      expect(fs.readFileSync.mock.calls[0][0]).toBe('key');
+      expect(fs.readFileSync.mock.calls[1][0]).toBe('cert');
+      expect(fs.readFileSync.mock.calls[2][0]).toBe('ca1');
+      expect(fs.readFileSync.mock.calls[3][0]).toBe('ca2');
     });
   });
 
@@ -52,7 +69,7 @@ describe('utils', () => {
       sysPath.join.mockReturnValue('/Users/nylon22/.duperrc.yml');
       globby.mockResolvedValue(['file1']);
       fs.readFileSync = jest.fn();
-      YAML.parse.mockResolvedValue({ clusters: [{ url: 'http://localhost:9200', name: 'japan-cluster' }], followerCluster: 'japan-cluster'});
+      YAML.parse.mockResolvedValue({ clusters: [{ options: { node: { url: 'http://localhost:9200' } }, name: 'japan-cluster' }], followerCluster: 'japan-cluster'});
 
       const failHandler = async function() {
         await UTILS.getLeaderCluster();
@@ -65,11 +82,13 @@ describe('utils', () => {
       sysPath.join.mockReturnValue('/Users/nylon22/.duperrc.yml');
       globby.mockResolvedValue(['file1']);
       fs.readFileSync = jest.fn();
-      YAML.parse.mockResolvedValue({ clusters: [{ url: 'http://localhost:9200', name: 'us-cluster' }], leaderCluster: 'us-cluster'});
+      YAML.parse.mockResolvedValue({ clusters: [{ options: { node: { url: 'http://localhost:9200' } }, name: 'us-cluster' }], leaderCluster: 'us-cluster'});
 
       const leader = await UTILS.getLeaderCluster();
 
-      expect(leader).toEqual({ url: 'http://localhost:9200', name: 'us-cluster' });
+      expect(leader.options).toEqual({ node: { url: 'http://localhost:9200' }});
+      expect(leader.name).toBe('us-cluster');
+      expect(leader.client).toBeDefined();
     });
   });
 
@@ -78,7 +97,7 @@ describe('utils', () => {
       sysPath.join.mockReturnValue('/Users/nylon22/.duperrc.yml');
       globby.mockResolvedValue(['file1']);
       fs.readFileSync = jest.fn();
-      YAML.parse.mockResolvedValue({ clusters: [{ url: 'http://localhost:9200', name: 'us-cluster' }], leaderCluster: 'us-cluster'});
+      YAML.parse.mockResolvedValue({ clusters: [{ options: { node: { url: 'http://localhost:9200' } }, name: 'us-cluster' }], leaderCluster: 'us-cluster'});
 
       const failHandler = async function() {
         await UTILS.getFollowerCluster();
@@ -91,11 +110,13 @@ describe('utils', () => {
       sysPath.join.mockReturnValue('/Users/nylon22/.duperrc.yml');
       globby.mockResolvedValue(['file1']);
       fs.readFileSync = jest.fn();
-      YAML.parse.mockResolvedValue({ clusters: [{ url: 'http://localhost:9200', name: 'japan-cluster' }], followerCluster: 'japan-cluster'});
+      YAML.parse.mockResolvedValue({ clusters: [{ options: { node: { url: 'http://localhost:9200' } }, name: 'japan-cluster' }], followerCluster: 'japan-cluster'});
 
       const follower = await UTILS.getFollowerCluster();
 
-      expect(follower).toEqual({ url: 'http://localhost:9200', name: 'japan-cluster' });
+      expect(follower.options).toEqual({ node: { url: 'http://localhost:9200' }});
+      expect(follower.name).toBe('japan-cluster');
+      expect(follower.client).toBeDefined();
     });
   });
 
@@ -104,7 +125,7 @@ describe('utils', () => {
       process.chdir = jest.fn();
       fs.writeFileSync = jest.fn();
 
-      await UTILS.writeConfigurationFile({ config : { clusters: [{ url: 'http://localhost:9200', name: 'us-cluster' }], leaderCluster: 'us-cluster' } });
+      await UTILS.writeConfigurationFile({ config : { clusters: [{ options: { node: { url: 'http://localhost:9200' } }, name: 'us-cluster' }], leaderCluster: 'us-cluster' } });
 
       expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
     });

@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { builder } = require('./builder');
 const {
   getFollowerCluster,
@@ -8,8 +7,7 @@ const {
   getValidatedArguments,
 } = require('@duper/utils');
 
-const close = async ({ node, clusterName, index, verbose, args }) => {
-  const client = new Client({ node });
+const close = async ({ client, clusterName, index, verbose, args }) => {
   const payload = getValidatedArguments({ builder, args });
 
   try {
@@ -34,13 +32,13 @@ const handler = async ({ follower_index, leader_index, verbose, ...args }) => {
   }
 
   if (follower_index) {
-    const { url: followerUrl, name: clusterName } = await getFollowerCluster();
-    await close({ node: followerUrl, clusterName, index: follower_index, verbose, args });
+    const { name: clusterName, client } = await getFollowerCluster();
+    await close({ client, clusterName, index: follower_index, verbose, args });
   }
 
   if (leader_index) {
-    const { url: leaderUrl, name: clusterName } = await getLeaderCluster();
-    await close({ node: leaderUrl, clusterName, index: leader_index, verbose, args });
+    const { name: clusterName, client } = await getLeaderCluster();
+    await close({ client, clusterName, index: leader_index, verbose, args });
   }
 };
 

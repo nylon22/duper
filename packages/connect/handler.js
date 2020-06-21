@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const set = require('lodash.set');
 const {
   getFollowerCluster,
@@ -8,10 +7,8 @@ const {
 } = require('@duper/utils');
 
 const handler = async ({ seeds, verbose }) => {
-  const { url: followerUrl } = await getFollowerCluster();
+  const { client } = await getFollowerCluster();
   const { name: remote_cluster } = await getLeaderCluster();
-
-  const client = new Client({ node: followerUrl });
 
   try {
     // Get the cluster settings

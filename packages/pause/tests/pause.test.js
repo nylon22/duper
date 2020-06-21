@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -9,16 +8,10 @@ const {
 jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
-
 describe('pause', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  beforeEach(() => {
-    Client.mockClear();
   });
 
   it('logs success', async () => {
@@ -26,13 +19,12 @@ describe('pause', () => {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          pauseFollow: pauseFollowMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        pauseFollow: pauseFollowMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products-copy', verbose: true });
 
@@ -53,13 +45,12 @@ describe('pause', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          pauseFollow: jest.fn().mockRejectedValue(new Error('Pause Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        pauseFollow: jest.fn().mockRejectedValue(new Error('Pause Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'products', verbose: true });
 

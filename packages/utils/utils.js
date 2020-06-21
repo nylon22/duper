@@ -3,6 +3,7 @@ const sysPath = require('path');
 const globby = require('globby');
 const YAML = require('yaml');
 const chalk = require('chalk');
+const { Client } = require('@elastic/elasticsearch');
 
 const getConfigurationFile = async () => {
   const configPath = sysPath.join(process.env['HOME'], '.duperrc.yml');
@@ -18,6 +19,42 @@ const getConfigurationFile = async () => {
   return YAML.parse(config);
 };
 
+const getElasticsearchClient = ({ cluster }) => {
+  let key;
+  let cert;
+  let ca;
+
+  if (cluster.options && cluster.options.ssl && cluster.options.ssl.key) {
+    key = fs.readFileSync(cluster.options.ssl.key);
+  }
+
+  if (cluster.options && cluster.options.ssl && cluster.options.ssl.cert) {
+    cert = fs.readFileSync(cluster.options.ssl.cert);
+  }
+
+  if (cluster.options && cluster.options.ssl && cluster.options.ssl.ca) {
+    ca = cluster.options.ssl.ca.map(_ca => fs.readFileSync(_ca));
+  }
+
+  const client = new Client({
+    node: cluster.options.node.url,
+    ssl: {
+      key,
+      cert,
+      ca,
+    },
+    auth: {
+      username: cluster.options && cluster.options.auth && cluster.options.auth.username,
+      password: cluster.options && cluster.options.auth && cluster.options.auth.password,
+      apiKey: cluster.options && cluster.options.auth && cluster.options.auth.apiKey,
+    },
+    cloud: cluster.options.cloud,
+  });
+
+  return client;
+};
+
+
 const getLeaderCluster = async () => {
   const { clusters = [], leaderCluster } = await getConfigurationFile();
   const leader = clusters.find((cluster) => cluster.name === leaderCluster);
@@ -27,7 +64,7 @@ const getLeaderCluster = async () => {
     );
   }
 
-  return leader;
+  return { ...leader, client: getElasticsearchClient({ cluster: leader })};
 };
 
 const getFollowerCluster = async () => {
@@ -39,7 +76,7 @@ const getFollowerCluster = async () => {
     );
   }
 
-  return follower;
+  return { ...follower, client: getElasticsearchClient({ cluster: follower }) };
 };
 
 const writeConfigurationFile = async ({ config }) => {
@@ -101,10 +138,14 @@ const getValidatedArguments = ({ builder, args }) => {
   }, {});
 };
 
+
+
 module.exports = {
   getConfigurationFile,
   getLeaderCluster,
   getFollowerCluster,
+  getElasticsearchClient,
+  getLeaderCluster,
   writeConfigurationFile,
   logESSuccess,
   logESFailure,

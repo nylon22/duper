@@ -4,6 +4,7 @@ const {
   logSuccess,
   logFailure,
 } = require('@duper/utils');
+const fs = require('fs');
 
 const handler = async ({ url, name, role, sslKey, sslCert, sslCa, username, password, apiKey, cloudId, overwrite, verbose }) => {
   const config = await getConfigurationFile();
@@ -30,6 +31,33 @@ const handler = async ({ url, name, role, sslKey, sslCert, sslCa, username, pass
   };
 
   if (sslKey || sslCert || sslCa) {
+    if (sslKey && !fs.existsSync(sslKey)) {
+      logFailure({
+        error: `sslKey "${sslKey}" does not exist`
+      });
+      return;
+    }
+
+    if (sslCa && !fs.existsSync(sslCert)) {
+      logFailure({
+        error: `sslCert "${sslCert}" does not exist`
+      });
+      return;
+    }
+
+    if (sslCa) {
+      let invalidCa = false;
+      sslCa.forEach(ca => {
+        if (!fs.existsSync(ca)) {
+          logFailure({
+            error: `sslCa "${ca}" does not exist`
+          });
+          invalidCa = true;
+        }
+      });
+
+      if (invalidCa) return;
+    }
     cluster.node.ssl = { key: sslKey, cert: sslCert, ca: sslCa };
   }
 

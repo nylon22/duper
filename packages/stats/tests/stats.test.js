@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -10,7 +9,6 @@ jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
 getLeaderCluster.mockResolvedValue({ url: 'http://localhost:8200', name: 'us-cluster' });
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
 
 describe('stats', () => {
 
@@ -24,7 +22,6 @@ describe('stats', () => {
   });
 
   beforeEach(() => {
-    Client.mockClear();
     console.log = mockedLog;
   });
 
@@ -33,13 +30,12 @@ describe('stats', () => {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          followStats: followStatsMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        followStats: followStatsMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ level: 'shard' });
 
@@ -55,13 +51,12 @@ describe('stats', () => {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          followStats: followStatsMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        followStats: followStatsMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ index: ['one', 'two'], level: 'shard' });
 
@@ -78,13 +73,12 @@ describe('stats', () => {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          stats: statsMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        stats: statsMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ level: 'cluster' });
 
@@ -94,13 +88,12 @@ describe('stats', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          stats: jest.fn().mockRejectedValue(new Error('Stats Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        stats: jest.fn().mockRejectedValue(new Error('Stats Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ level: 'cluster'});
 

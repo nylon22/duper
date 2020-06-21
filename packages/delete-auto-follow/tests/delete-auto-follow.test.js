@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -11,7 +10,6 @@ jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
 getLeaderCluster.mockResolvedValue({ url: 'http://localhost:8200', name: 'us-cluster' });
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
 
 
 describe('delete-auto-follow', () => {
@@ -20,22 +18,17 @@ describe('delete-auto-follow', () => {
     jest.clearAllMocks();
   });
 
-  beforeEach(() => {
-    Client.mockClear();
-  });
-
   it('logs success', async () => {
     const deleteAutoFollowPatternMock = jest.fn().mockResolvedValue({ body: {
       acknowledged: true
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          deleteAutoFollowPattern: deleteAutoFollowPatternMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        deleteAutoFollowPattern: deleteAutoFollowPatternMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'products-*', verbose: true });
 
@@ -53,13 +46,12 @@ describe('delete-auto-follow', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          deleteAutoFollowPattern: jest.fn().mockRejectedValue(new Error('Delete Auto Follow Pattern Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        deleteAutoFollowPattern: jest.fn().mockRejectedValue(new Error('Delete Auto Follow Pattern Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'products-*', verbose: true });
 

@@ -1,10 +1,7 @@
-const { Client } = require('@elastic/elasticsearch');
 const { getFollowerCluster, logESFailure } = require('@duper/utils');
 
 const handler = async ({ auto_follow_pattern_name = '' }) => {
-  const { url: followerUrl } = await getFollowerCluster();
-
-  const client = new Client({ node: followerUrl });
+  const { client } = await getFollowerCluster();
 
   try {
     const resp = await client.ccr.getAutoFollowPattern({

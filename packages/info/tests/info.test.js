@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   logESFailure,
@@ -22,7 +21,6 @@ describe('info', () => {
   });
 
   beforeEach(() => {
-    Client.mockClear();
     console.log = mockedLog;
   });
 
@@ -31,13 +29,12 @@ describe('info', () => {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          followInfo: followInfoMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        followInfo: followInfoMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ index: [] });
 
@@ -55,13 +52,12 @@ describe('info', () => {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          followInfo: followInfoMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        followInfo: followInfoMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ index: ['houndstooth-*', 'stripes-*'] });
 
@@ -75,13 +71,12 @@ describe('info', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          followInfo: jest.fn().mockRejectedValue(new Error('Info Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        followInfo: jest.fn().mockRejectedValue(new Error('Info Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'products-*' });
 

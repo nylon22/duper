@@ -26,13 +26,17 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/connect": "1.0.0-alpha.0",
-    "@duper/close": "1.0.0-alpha.0",
     "@duper/auto-follow": "1.0.0-alpha.0",
+    "@duper/close": "1.0.0-alpha.0",
+    "@duper/config": "1.0.0-alpha.0",
+    "@duper/config-add-cluster": "1.0.0-alpha.0",
+    "@duper/config-delete-cluster": "1.0.0-alpha.0",
+    "@duper/config-set-leader-cluster": "1.0.0-alpha.0",
+    "@duper/connect": "1.0.0-alpha.0",
     "@duper/delete-auto-follow": "1.0.0-alpha.0",
-    "@duper/get-auto-follow": "1.0.0-alpha.0",
     "@duper/follow": "1.0.0-alpha.0",
     "@duper/forget": "1.0.0-alpha.0",
+    "@duper/get-auto-follow": "1.0.0-alpha.0",
     "@duper/info": "1.0.0-alpha.0",
     "@duper/open": "1.0.0-alpha.0",
     "@duper/pause": "1.0.0-alpha.0",
@@ -41,11 +45,6 @@
     "@duper/resume-auto-follow": "1.0.0-alpha.0",
     "@duper/stats": "1.0.0-alpha.0",
     "@duper/unfollow": "1.0.0-alpha.0",
-    "@duper/config": "1.0.0-alpha.0",
-    "@duper/config-add-cluster": "1.0.0-alpha.0",
-    "@duper/config-delete-cluster": "1.0.0-alpha.0",
-    "@duper/config-set-follower-cluster": "1.0.0-alpha.0",
-    "@duper/config-set-leader-cluster": "1.0.0-alpha.0",
     "chalk": "^4.0.0",
     "yargs": "^15.3.1"
   }

@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -11,7 +10,6 @@ jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
 getLeaderCluster.mockResolvedValue({ url: 'http://localhost:8200', name: 'us-cluster' });
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
 
 describe('unfollow', () => {
 
@@ -19,22 +17,17 @@ describe('unfollow', () => {
     jest.clearAllMocks();
   });
 
-  beforeEach(() => {
-    Client.mockClear();
-  });
-
   it('logs success', async () => {
     const unfollowMock = jest.fn().mockResolvedValue({ body: {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          unfollow: unfollowMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        unfollow: unfollowMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products-copy', verbose: true });
 
@@ -53,13 +46,12 @@ describe('unfollow', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          unfollow: jest.fn().mockRejectedValue(new Error('Unfollow Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        unfollow: jest.fn().mockRejectedValue(new Error('Unfollow Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products-copy'});
 

@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -12,9 +11,7 @@ jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
 getLeaderCluster.mockResolvedValue({ url: 'http://localhost:8200', name: 'us-cluster' });
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
 getValidatedArguments.mockReturnValue({ leader_index_patterns: ['dogs-*', 'cats-*' ] });
-
 
 describe('auto-follow', () => {
 
@@ -22,23 +19,16 @@ describe('auto-follow', () => {
     jest.clearAllMocks();
   });
 
-  beforeEach(() => {
-    Client.mockClear();
-  });
-
   it('logs success', async () => {
     const putAutoFollowPatternMock = jest.fn().mockResolvedValue({ body: { acknowledged: true } });
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          putAutoFollowPattern: putAutoFollowPatternMock,
-        }
-      };
-    }),
+    const client = {
+      ccr: {
+        putAutoFollowPattern: putAutoFollowPatternMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'my_auto_follow_pattern', verbose: true, leader_index_patterns: ['dogs-*', 'cats-*' ] });
-
-    expect(Client).toHaveBeenCalledTimes(1);
 
     expect(putAutoFollowPatternMock).toHaveBeenCalledTimes(1);
     const arg = putAutoFollowPatternMock.mock.calls[0][0];
@@ -59,13 +49,12 @@ describe('auto-follow', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          putAutoFollowPattern: jest.fn().mockRejectedValue(new Error('Auto Follow Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        putAutoFollowPattern: jest.fn().mockRejectedValue(new Error('Auto Follow Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'my_auto_follow_pattern', verbose: true, leader_index_patterns: ['dogs-*', 'cats-*' ] });
 

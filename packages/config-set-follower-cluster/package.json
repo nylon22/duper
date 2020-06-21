@@ -1,5 +1,5 @@
 {
-  "name": "@duper/config-add-cluster",
+  "name": "@duper/config-set-follower-cluster",
   "version": "1.0.0-alpha.0",
   "description": "Add an Elasticsearch cluster to your duper configuration",
   "main": "set-follower-cluster.js",

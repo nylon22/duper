@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -11,18 +10,12 @@ const {
 jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
-getLeaderCluster.mockResolvedValue({ url: 'http://localhost:8200', name: 'us-cluster' });
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
 getValidatedArguments.mockReturnValue({ ignoreUnavailable: true });
 
 describe('close', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  beforeEach(() => {
-    Client.mockClear();
   });
 
   it('throws for missing follower_index and leader_index', async () => {
@@ -33,30 +26,43 @@ describe('close', () => {
   });
 
   it('logs success', async () => {
-    const closeMock = jest.fn().mockResolvedValue({ body: {
+    const followerCloseMock = jest.fn().mockResolvedValue({ body: {
       acknowledged : true,
       shards_acknowledged: true
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        indices: {
-          close: closeMock,
-        }
-      };
-    });
+    const leaderCloseMock = jest.fn().mockResolvedValue({ body: {
+      acknowledged : true,
+      shards_acknowledged: true
+    }});
+
+    const followerClient = {
+      indices: {
+        close: followerCloseMock,
+      }
+    };
+
+    const leaderClient = {
+      indices: {
+        close: leaderCloseMock,
+      }
+    };
+
+    getLeaderCluster.mockResolvedValue({ client: leaderClient, name: 'us-cluster' });
+    getFollowerCluster.mockResolvedValue({ client: followerClient, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products-copy', leader_index: 'products', verbose: true, ignoreUnavailable: true });
 
-    expect(closeMock).toHaveBeenCalledTimes(2);
+    expect(followerCloseMock).toHaveBeenCalledTimes(1);
+    expect(leaderCloseMock).toHaveBeenCalledTimes(1);
     expect(logESSuccess).toHaveBeenCalledTimes(2);
 
-    expect(closeMock.mock.calls[0][0]).toEqual({
+    expect(followerCloseMock.mock.calls[0][0]).toEqual({
       index: 'products-copy',
       ignoreUnavailable: true,
     });
 
-    expect(closeMock.mock.calls[1][0]).toEqual({
+    expect(leaderCloseMock.mock.calls[0][0]).toEqual({
       index: 'products',
       ignoreUnavailable: true,
     });
@@ -81,13 +87,23 @@ describe('close', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        indices: {
-          close: jest.fn().mockRejectedValue(new Error('Close Error')),
-        }
-      };
-    });
+    const followerCloseMock = jest.fn().mockRejectedValue(new Error('Close Error'));
+    const leaderCloseMock = jest.fn().mockRejectedValue(new Error('Close Error'));
+
+    const followerClient = {
+      indices: {
+        close: followerCloseMock,
+      }
+    };
+
+    const leaderClient = {
+      indices: {
+        close: leaderCloseMock,
+      }
+    };
+
+    getLeaderCluster.mockResolvedValue({ client: leaderClient, name: 'us-cluster' });
+    getFollowerCluster.mockResolvedValue({ client: followerClient, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products-copy', leader_index: 'products', verbose: true, ignoreUnavailable: true });
 

@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   logESFailure,
@@ -7,8 +6,6 @@ const {
 
 jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
-
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
 
 describe('get-auto-follow', () => {
 
@@ -22,7 +19,6 @@ describe('get-auto-follow', () => {
   });
 
   beforeEach(() => {
-    Client.mockClear();
     console.log = mockedLog;
   });
 
@@ -31,13 +27,12 @@ describe('get-auto-follow', () => {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          getAutoFollowPattern: getAutoFollowMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        getAutoFollowPattern: getAutoFollowMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'products-*' });
 
@@ -51,13 +46,12 @@ describe('get-auto-follow', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          getAutoFollowPattern: jest.fn().mockRejectedValue(new Error('Get Auto Follow Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        getAutoFollowPattern: jest.fn().mockRejectedValue(new Error('Get Auto Follow Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ auto_follow_pattern_name: 'products-*' });
 

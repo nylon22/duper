@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -11,17 +10,11 @@ jest.mock('@duper/utils');
 jest.mock('@elastic/elasticsearch');
 
 getLeaderCluster.mockResolvedValue({ url: 'http://localhost:8200', name: 'us-cluster' });
-getFollowerCluster.mockResolvedValue({ url: 'http://localhost:9200', name: 'japan-cluster' });
-
 
 describe('connect', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  beforeEach(() => {
-    Client.mockClear();
   });
 
   it('logs success', async () => {
@@ -39,14 +32,14 @@ describe('connect', () => {
       acknowledged: true
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        cluster: {
-          getSettings: getSettingsMock,
-          putSettings: putSettingsMock,
-        }
-      };
-    });
+    const client = {
+      cluster: {
+        getSettings: getSettingsMock,
+        putSettings: putSettingsMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
+
 
     await handler({ seeds: ['http://localhost:9300'], verbose: true });
 
@@ -86,14 +79,13 @@ describe('connect', () => {
       }
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        cluster: {
-          getSettings: getSettingsMock,
-          putSettings: jest.fn().mockRejectedValue(new Error('Connect Error')),
-        }
-      };
-    });
+    const client = {
+      cluster: {
+        getSettings: getSettingsMock,
+        putSettings: jest.fn().mockRejectedValue(new Error('Connect Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products-copy', leader_index: 'products', verbose: true, ignoreUnavailable: true });
 

@@ -1,10 +1,7 @@
-const { Client } = require('@elastic/elasticsearch');
 const { getFollowerCluster, logESSuccess, logESFailure } = require('@duper/utils');
 
 const handler = async ({ follower_index, verbose }) => {
-  const { url: followerUrl, name: followerCluster } = await getFollowerCluster();
-
-  const client = new Client({ node: followerUrl });
+  const { client, name: followerCluster } = await getFollowerCluster();
 
   try {
     const resp = await client.ccr.pauseFollow({

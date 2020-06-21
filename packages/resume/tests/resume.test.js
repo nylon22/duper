@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { handler } = require('../handler');
 const {
   getFollowerCluster,
@@ -21,22 +20,17 @@ describe('resume', () => {
     jest.clearAllMocks();
   });
 
-  beforeEach(() => {
-    Client.mockClear();
-  });
-
   it('logs success', async () => {
     const resumeFollowMock = jest.fn().mockResolvedValue({ body: {
       acknowledged : true,
     }});
 
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          resumeFollow: resumeFollowMock,
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        resumeFollow: resumeFollowMock,
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products-copy', verbose: true, max_write_buffer_count: 10 });
 
@@ -58,13 +52,12 @@ describe('resume', () => {
   });
 
   it('logs failure', async () => {
-    Client.mockImplementation(() => {
-      return {
-        ccr: {
-          resumeFollow: jest.fn().mockRejectedValue(new Error('Resume Error')),
-        }
-      };
-    });
+    const client = {
+      ccr: {
+        resumeFollow: jest.fn().mockRejectedValue(new Error('Resume Error')),
+      }
+    };
+    getFollowerCluster.mockResolvedValue({ client, name: 'japan-cluster' });
 
     await handler({ follower_index: 'products', verbose: true });
 

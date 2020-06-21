@@ -1,4 +1,3 @@
-const { Client } = require('@elastic/elasticsearch');
 const { builder } = require('./builder');
 const {
   getFollowerCluster,
@@ -9,10 +8,9 @@ const {
 } = require('@duper/utils');
 
 const handler = async ({ auto_follow_pattern_name, verbose, ...args }) => {
-  const { url: followerUrl } = await getFollowerCluster();
+  const { client } = await getFollowerCluster();
   const { name: remote_cluster } = await getLeaderCluster();
 
-  const client = new Client({ node: followerUrl });
   const payload = getValidatedArguments({ builder, args });
 
   try {
