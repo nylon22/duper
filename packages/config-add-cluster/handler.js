@@ -38,7 +38,7 @@ const handler = async ({ url, name, role, sslKey, sslCert, sslCa, username, pass
       return;
     }
 
-    if (sslCa && !fs.existsSync(sslCert)) {
+    if (sslCert && !fs.existsSync(sslCert)) {
       logFailure({
         error: `sslCert "${sslCert}" does not exist`
       });
