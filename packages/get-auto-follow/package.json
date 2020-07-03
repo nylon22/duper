@@ -1,6 +1,6 @@
 {
   "name": "@duper/get-auto-follow",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Forget a following",
   "main": "get-auto-follow.js",
   "keywords": [
@@ -28,6 +28,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/utils": "1.0.0-alpha.0"
+    "@duper/utils": "1.0.0"
   }
 }

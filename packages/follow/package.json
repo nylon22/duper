@@ -1,6 +1,6 @@
 {
   "name": "@duper/follow",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Follow a leader index",
   "main": "follow.js",
   "keywords": [
@@ -26,6 +26,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/utils": "1.0.0-alpha.0"
+    "@duper/utils": "1.0.0"
   }
 }

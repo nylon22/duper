@@ -1,6 +1,6 @@
 {
   "name": "@duper/config-delete-cluster",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Delete an Elasticsearch cluster from your duper configuration",
   "main": "delete-cluster.js",
   "keywords": [
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/utils": "1.0.0-alpha.0"
+    "@duper/utils": "1.0.0"
   }
 }
 
