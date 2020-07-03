@@ -7,9 +7,16 @@
     "packages/*",
     "docs"
   ],
-  "message": "chore: publish release [skip ci]",
+  "message": "chore: publish %s",
   "command": {
     "publish": {
+      "allowBranch": "master",
+      "ignoreChanges": [
+        "*.md",
+        "*.test.js",
+        "docs"
+      ],
+      "changelogPreset": "angular-bitbucket",
       "conventionalCommits": true
     }
   }

@@ -23,7 +23,14 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@commitlint/config-lerna-scopes": "^9.0.1",
     "@elastic/elasticsearch-mock": "^0.2.1",
+    "@lerna/conventional-commits": "^3.22.0",
+    "conventional-changelog-angular-bitbucket": "^1.2.0",
+    "conventional-changelog-cli": "^2.0.34",
+    "conventional-recommended-bump": "^6.0.9",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
@@ -31,6 +38,7 @@
     "eslint-plugin-jest": "^23.13.2",
     "eslint-plugin-unicorn": "^20.1.0",
     "jest": "^26.0.1",
+    "lerna": "^3.22.1",
     "prettier": "^2.0.4"
   }
 }
