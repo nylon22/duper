@@ -1,6 +1,6 @@
 {
   "name": "@duper/utils",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Duper Utility Functions",
   "main": "utils.js",
   "keywords": [
@@ -29,5 +29,6 @@
     "@elastic/elasticsearch": "^7.8.0",
     "globby": "^11.0.0",
     "yaml": "^1.9.2"
-  }
+  },
+  "gitHead": "c6916d080bbffa3a79f6d6eba352e71123cb7fff"
 }

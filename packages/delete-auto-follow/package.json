@@ -1,6 +1,6 @@
 {
   "name": "@duper/delete-auto-follow",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Delete an auto-follow pattern",
   "main": "delete-auto-follow.js",
   "keywords": [
@@ -28,6 +28,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/utils": "1.0.0-alpha.0"
-  }
+    "@duper/utils": "^null-alpha.27+c6916d0"
+  },
+  "gitHead": "c6916d080bbffa3a79f6d6eba352e71123cb7fff"
 }
