@@ -1,6 +1,6 @@
 {
   "name": "@duper/config-set-leader-cluster",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Set your leader cluster",
   "main": "set-leader-cluster.js",
   "keywords": [
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/utils": "^null-alpha.27+c6916d0"
-  },
-  "gitHead": "c6916d080bbffa3a79f6d6eba352e71123cb7fff"
+    "@duper/utils": "1.0.0-alpha.0"
+  }
 }
+

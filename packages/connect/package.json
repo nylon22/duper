@@ -1,6 +1,6 @@
 {
   "name": "@duper/connect",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Set up connectivity between your follower cluster and your leader cluster",
   "main": "connect.js",
   "keywords": [
@@ -26,8 +26,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@duper/utils": "^null-alpha.27+c6916d0",
+    "@duper/utils": "1.0.0-alpha.0",
     "lodash.set": "^4.3.2"
-  },
-  "gitHead": "c6916d080bbffa3a79f6d6eba352e71123cb7fff"
+  }
 }
