@@ -6,7 +6,7 @@ description: Delete an Elasticsearch cluster from your duper configuration
 ## Usage
 
 ```sh
-duper config delete-cluster [options]
+duper delete-cluster [options]
 ```
 
 ## Options

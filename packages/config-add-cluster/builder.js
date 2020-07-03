@@ -16,9 +16,13 @@ const builder = {
     desc: 'The role for the Elasticsearch cluster',
     choices: ['leader', 'follower'],
   },
+  overwrite: {
+    desc: 'Set to true to overwrite an existing cluster in your duper configuration with the same name',
+    type: 'boolean',
+  },
   sslKey: { 
     desc: 'The file path to the private key to include in requests to the Elasticsearch cluster. Necessary only if the Elasticsearch cluster requires client certificate authentication.',
-    choices: ['leader', 'follower'],
+    type: 'string',
   },
   sslCert: {
     desc: 'The file path to the client certificate to include in requests to the Elasticsearch cluster. Necessary only if the Elasticsearch cluster requires client certificate authentication.',
@@ -43,10 +47,6 @@ const builder = {
   cloudId: {
     desc: 'The cloud id to use include in requests to the Elasticsearch cluster. Necessary only if you are using Elastic cloud',
     type: 'string',
-  },
-  overwrite: {
-    desc: 'Set to true to overwrite an existing cluster in your duper configuration with the same name',
-    type: 'boolean',
   },
 };
 

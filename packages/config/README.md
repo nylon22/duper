@@ -1,3 +1,5 @@
 # @duper/config
 
-> Show duper configuration
+> See your duper configuration
+
+[Documentation](https://duper.github.io/commands/config-list/)

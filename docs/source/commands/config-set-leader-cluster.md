@@ -6,7 +6,7 @@ description: Set your leader cluster
 ## Usage
 
 ```sh
-duper config set-leader-cluster [options]
+duper set-leader-cluster [options]
 ```
 
 ## Options

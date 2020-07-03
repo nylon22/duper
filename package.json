@@ -9,12 +9,14 @@
     "access": "public"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "dependencies": {},
   "scripts": {
     "test": "jest",
-    "test:ci": "jest --runInBand --collectCoverage"
+    "test:ci": "jest --runInBand --collectCoverage",
+    "start": "yarn workspace @duper/docs start"
   },
   "jest": {
     "testURL": "http://localhost/",

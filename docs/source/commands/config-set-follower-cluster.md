@@ -6,7 +6,7 @@ description: Set your follower cluster
 ## Usage
 
 ```sh
-duper config set-follower-cluster [options]
+duper set-follower-cluster [options]
 ```
 
 ## Options
