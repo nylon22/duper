@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{TokL:function(n,o,t){"use strict";t.r(o),t.d(o,"default",(function(){return c}));t("mXGw");var u=t("aD51");function c(){return Object(u.jsx)("div",null,"not found")}}}]);
+//# sourceMappingURL=component---node-modules-gatsby-theme-apollo-core-src-pages-404-js-4b8f1f204edffd3866f7.js.map
