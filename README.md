@@ -1,4 +1,4 @@
-# duper
+![Logo](./logo.svg)
 
 > A command line tool that makes administering Elasticsearch Cross-cluster Replication easy
 
@@ -16,7 +16,7 @@ $ npm install -g @duper/duper
 
 ## Documentation
 
-https://www.duper.github.io
+https://duper.github.io
 
 ## Getting Started
 Let's say we have two clusters running on our local machine: `us-cluster`, which runs on port **9200** and `japan-cluster`, which runs on port **8200**. We want to replicate the documents on an already-existing `products` index on the US cluster (the leader cluster) to the Japan Cluster (the follower cluster).
@@ -48,4 +48,3 @@ duper connect --seeds "127.0.0.1:9300"
 ```sh
 duper follow --follower_index products-copy --leader_index products
 ```
-
