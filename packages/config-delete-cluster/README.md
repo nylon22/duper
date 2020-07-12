@@ -2,4 +2,4 @@
 
 > Delete an Elasticsearch cluster from your duper configuration
 
-[Documentation](https://duper.github.io/commands/config-delete-cluster/)
+[Documentation](https://nylon22.github.io/duper/commands/config-delete-cluster/)

@@ -2,4 +2,4 @@
 
 > Close an index
 
-[Documentation](https://duper.github.io/commands/close/)
+[Documentation](https://nylon22.github.io/duper/commands/close/)

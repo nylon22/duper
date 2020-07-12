@@ -2,4 +2,4 @@
 
 > See your duper configuration
 
-[Documentation](https://duper.github.io/commands/config-list/)
+[Documentation](https://nylon22.github.io/duper/commands/config-list/)

@@ -2,4 +2,4 @@
 
 > Enable connectivity between your follower cluster and your leader cluster>
 
-[Documentation](https://duper.github.io/commands/connect/)
+[Documentation](https://nylon22.github.io/duper/commands/connect/)

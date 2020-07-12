@@ -2,4 +2,4 @@
 
 > Get configured auto-follow patterns on your follower cluster.
 
-[Documentation](https://duper.github.io/commands/get-auto-follow/)
+[Documentation](https://nylon22.github.io/duper/commands/get-auto-follow/)

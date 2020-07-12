@@ -4,4 +4,4 @@
 
 > You can resume auto-following with the resume-auto-follow command. Once resumed, the auto-follow pattern is active again and automatically configures follower indices for newly created indices on your leader cluster that match its patterns. Indices created on your leader cluster that match the auto-follow pattern while the pattern was paused will also be followed, unless they have been deleted or closed in the meantime.
 
-[Documentation](https://duper.github.io/commands/pause-auto-follow/)
+[Documentation](https://nylon22.github.io/duper/commands/pause-auto-follow/)

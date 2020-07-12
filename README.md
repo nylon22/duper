@@ -16,4 +16,4 @@ $ npm install -g @duper/duper
 
 ## Documentation
 
-https://duper.github.io
+https://nylon22.github.io/duper/

@@ -2,5 +2,5 @@
 
 > Add an Elasticsearch cluster to your duper configuration
 
-[Documentation](https://duper.github.io/commands/config-set-follower-cluster/)
+[Documentation](https://nylon22.github.io/duper/commands/config-set-follower-cluster/)
 

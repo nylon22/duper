@@ -2,4 +2,4 @@
 
 > open an index
 
-[Documentation](https://duper.github.io/commands/open/)
+[Documentation](https://nylon22.github.io/duper/commands/open/)

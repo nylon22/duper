@@ -43,7 +43,7 @@ module.exports = {
         fields: {
           version: "1"
         },
-        baseUrl: "https://duper.github.io",
+        baseUrl: "https://nylon22.github.io/duper/",
         contentDir: "source",
         root: __dirname,
         subtitle: "duper documentation",
@@ -52,7 +52,7 @@ module.exports = {
           "A command line tool that makes administering Elasticsearch Cross-cluster Replication (CCR) easy",
         githubRepo: "nylon22/duper",
         defaultVersion: "0.4",
-        logoLink: "https://duper.github.io",
+        logoLink: "https://nylon22.github.io/duper/",
         navConfig: {
           Github: {
             url: "https://github.com/nylon22/duper",

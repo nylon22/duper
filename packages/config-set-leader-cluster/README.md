@@ -2,5 +2,5 @@
 
 > Set your leader cluster
 
-[Documentation](https://duper.github.io/commands/config-set-leader-cluster/)
+[Documentation](https://nylon22.github.io/duper/commands/config-set-leader-cluster/)
 
