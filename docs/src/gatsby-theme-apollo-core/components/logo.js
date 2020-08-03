@@ -1,5 +1,5 @@
 import React from "react"
-import DuperLogo from "../../../static/logo.svg"
+import DuperLogo from "../../../assets/logo.svg"
 import styled from "@emotion/styled"
 
 const Wrapper = styled.div({
