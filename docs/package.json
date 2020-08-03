@@ -8,6 +8,7 @@
     "@apollo/space-kit": "^4.2.0",
     "gatsby": "^2.20.25",
     "gatsby-image": "^2.3.4",
+    "gatsby-plugin-algolia": "^0.11.2",
     "gatsby-plugin-antd": "^2.2.0",
     "gatsby-plugin-manifest": "^2.3.5",
     "gatsby-plugin-mdx": "^1.1.11",

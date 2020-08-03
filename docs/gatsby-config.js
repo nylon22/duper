@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   pathPrefix: 'docs',
   siteMetadata: {
@@ -33,6 +35,14 @@ module.exports = {
       options: {
         style: false
       }
+    },
+    {
+      resolve: 'gatsby-plugin-algolia',
+      options: {
+        appId: process.env.DUPER_GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.DUPER_ALGOLIA_ADMIN_KEY,
+        queries: require('./src/utils/algolia-queries')
+      },
     },
     {
       resolve: 'gatsby-theme-apollo-docs',
