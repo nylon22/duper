@@ -5988,15 +5988,7 @@ gatsby-cli@^2.11.11:
     ink "^2.7.1"
     ink-spinner "^3.0.1"
 
-gatsby-core-utils@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-1.1.3.tgz#1011ae6ae252b809c66fe62fe9da9d419bd29650"
-  dependencies:
-    ci-info "2.0.0"
-    configstore "^5.0.1"
-    node-object-hash "^2.0.0"
-
-gatsby-core-utils@^1.1.4:
+gatsby-core-utils@^1.1.3, gatsby-core-utils@^1.1.4:
   version "1.1.4"
   resolved "https://registry.npmjs.org/gatsby-core-utils/-/gatsby-core-utils-1.1.4.tgz#4b3c482f9633bafab1291a91f84caab23cdd8b85"
   dependencies:
